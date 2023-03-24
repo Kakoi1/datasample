@@ -107,6 +107,7 @@ public class addfish extends javax.swing.JFrame {
         jLabel10.setText("Price");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 50, 30));
 
+        id.setEditable(false);
         id.setBackground(new java.awt.Color(204, 204, 204));
         id.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -131,7 +132,7 @@ public class addfish extends javax.swing.JFrame {
 
         save1.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
         save1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        save1.setText("Save");
+        save1.setText("label");
         save.add(save1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
         jPanel2.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 70, 30));
@@ -211,7 +212,23 @@ public class addfish extends javax.swing.JFrame {
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
     dbconnect dbc = new dbconnect();
-
+    
+    if(action.equals("Edit")){
+        
+         int num = dbc.updateData("UPDATE tbl_fish "
+                + "SET f_name = '"+fish.getText()+"', f_status='"+box.getSelectedItem()+"', "
+                        + "f_quantity ='"+quan.getText()+"', f_price='"+pri.getText()+"'  "
+                                + "WHERE f_code = '"+id.getText()+"'");
+       
+        if(num == 0){
+           
+        }else{
+           JOptionPane.showMessageDialog(null, "Updated Successfully!");
+        close();
+        }
+        
+    }
+    else if(action.equals("Add")){
     if(fish.getText().isEmpty()||quan.getText().isEmpty()||pri.getText().isEmpty()){
         JOptionPane.showMessageDialog(null, "Input your details");        
     }
@@ -221,11 +238,9 @@ public class addfish extends javax.swing.JFrame {
             + "VALUES ('"+fish.getText()+"', '"+quan.getText()+"','"+box.getSelectedItem()+"','"+pri.getText()+"')");
         JOptionPane.showMessageDialog(null,"Successfull added");
         
-         this.dispose();
-         main m = new main();
-         m.setVisible(true);
+        close();
     }  
-         
+    }   
     }//GEN-LAST:event_saveMouseClicked
 
     private void boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxActionPerformed
@@ -233,9 +248,7 @@ public class addfish extends javax.swing.JFrame {
     }//GEN-LAST:event_boxActionPerformed
 
     private void delete2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete2MouseClicked
-      this.dispose();
-         main m = new main();
-         m.setVisible(true);
+    close();
     }//GEN-LAST:event_delete2MouseClicked
 
     private void delete2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete2MouseEntered
@@ -282,7 +295,7 @@ public class addfish extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> box;
+    public javax.swing.JComboBox<String> box;
     private javax.swing.JPanel delete2;
     public javax.swing.JTextField fish;
     public javax.swing.JTextField id;
@@ -298,7 +311,7 @@ public class addfish extends javax.swing.JFrame {
     public javax.swing.JTextField pri;
     public javax.swing.JTextField quan;
     private javax.swing.JPanel save;
-    private javax.swing.JLabel save1;
+    public javax.swing.JLabel save1;
     // End of variables declaration//GEN-END:variables
 
     private void seticon() {

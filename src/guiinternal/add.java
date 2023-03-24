@@ -59,7 +59,7 @@ public class add extends javax.swing.JInternalFrame {
     Color headcolor = new Color(255,153,153);
     Color hover = new Color(0,153,204);
     
-    
+    public String action;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -147,20 +147,20 @@ public class add extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Update");
+        jLabel5.setText("Edit");
 
         javax.swing.GroupLayout updateLayout = new javax.swing.GroupLayout(update);
         update.setLayout(updateLayout);
         updateLayout.setHorizontalGroup(
             updateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(updateLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                .addContainerGap())
         );
         updateLayout.setVerticalGroup(
             updateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(updateLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateLayout.createSequentialGroup()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -302,7 +302,8 @@ public class add extends javax.swing.JInternalFrame {
         JFrame mainJFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
        mainJFrame.dispose();
     addfish af = new addfish();
-    
+    af.action = "Add";
+    af.save1.setText("Save");
    af.setVisible(true);
     
    
@@ -325,13 +326,14 @@ public class add extends javax.swing.JInternalFrame {
      }
      else{
          TableModel model = table.getModel();
-         update up = new update();
+         addfish up = new addfish();
          up.id.setText(""+model.getValueAt(rowIndex, 0));
          up.fish.setText(""+model.getValueAt(rowIndex, 1));
-         up.box.setSelectedItem(""+model.getValueAt(rowIndex, 2));
+         up.box.setSelectedItem(""+model.getValueAt(rowIndex, 2).toString());
          up.quan.setText(""+model.getValueAt(rowIndex, 3));
          up.pri.setText(""+model.getValueAt(rowIndex, 4));
-         
+         up.action = "Edit";
+         up.save1.setText("Update");
              JFrame mainJFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
        mainJFrame.dispose();
         up.setVisible(true);
