@@ -5,6 +5,7 @@
  */
 package login;
 import config.dbconnect;
+import guiinternal.add;
 import login.main;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -24,11 +25,21 @@ public class addfish extends javax.swing.JFrame {
         seticon();
     }
     
-   
+   public String action;
     
       Color bodycolor = new Color(153,204,255);
     Color headcolor = new Color(255,153,153);
     Color hover = new Color(0,153,204);
+    
+    public void close(){
+        
+        this.dispose();
+        main m = new main();
+        m.setVisible(true);
+        add up = new add();
+        m.despane.add(up).setVisible(true);
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,12 +56,9 @@ public class addfish extends javax.swing.JFrame {
         fish = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        getsta = new javax.swing.JTextField();
         pri = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         id = new javax.swing.JTextField();
-        update = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         save = new javax.swing.JPanel();
         save1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -89,17 +97,11 @@ public class addfish extends javax.swing.JFrame {
         jLabel9.setText("Quantity");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 50, 30));
 
-        getsta.setBackground(new java.awt.Color(204, 204, 204));
-        getsta.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        getsta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getsta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.add(getsta, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 80, 30));
-
         pri.setBackground(new java.awt.Color(204, 204, 204));
         pri.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         pri.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pri.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.add(pri, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 170, 30));
+        jPanel2.add(pri, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 160, 30));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Price");
@@ -110,43 +112,6 @@ public class addfish extends javax.swing.JFrame {
         id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         id.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 160, 30));
-
-        update.setBackground(new java.awt.Color(255, 153, 153));
-        update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        update.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        update.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                updateMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                updateMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                updateMouseExited(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Discard");
-
-        javax.swing.GroupLayout updateLayout = new javax.swing.GroupLayout(update);
-        update.setLayout(updateLayout);
-        updateLayout.setHorizontalGroup(
-            updateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        updateLayout.setVerticalGroup(
-            updateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateLayout.createSequentialGroup()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 70, 30));
 
         save.setBackground(new java.awt.Color(255, 153, 153));
         save.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -217,7 +182,7 @@ public class addfish extends javax.swing.JFrame {
         jLabel12.setText("Cancel");
         delete2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(delete2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 70, 30));
+        jPanel2.add(delete2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, 70, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -236,14 +201,6 @@ public class addfish extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void updateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseEntered
-        update.setBackground(bodycolor);
-    }//GEN-LAST:event_updateMouseEntered
-
-    private void updateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseExited
-        update.setBackground(headcolor);
-    }//GEN-LAST:event_updateMouseExited
-
     private void saveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseEntered
         save.setBackground(bodycolor);
     }//GEN-LAST:event_saveMouseEntered
@@ -255,13 +212,13 @@ public class addfish extends javax.swing.JFrame {
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
     dbconnect dbc = new dbconnect();
 
-    if(fish.getText().isEmpty()||quan.getText().isEmpty()||getsta.getText().isEmpty()||pri.getText().isEmpty()){
+    if(fish.getText().isEmpty()||quan.getText().isEmpty()||pri.getText().isEmpty()){
         JOptionPane.showMessageDialog(null, "Input your details");        
     }
     else{
         dbc.insertData("INSERT INTO tbl_fish (f_name, f_status, f_quantity, f_price) "
 
-            + "VALUES ('"+fish.getText()+"', '"+quan.getText()+"','"+getsta.getText()+"','"+pri.getText()+"')");
+            + "VALUES ('"+fish.getText()+"', '"+quan.getText()+"','"+box.getSelectedItem()+"','"+pri.getText()+"')");
         JOptionPane.showMessageDialog(null,"Successfull added");
         
          this.dispose();
@@ -271,18 +228,8 @@ public class addfish extends javax.swing.JFrame {
          
     }//GEN-LAST:event_saveMouseClicked
 
-    private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
-    id.setText("");
-    fish.setText("");
-    getsta.setText("");
-    pri.setText("");
-    quan.setText("");
-    }//GEN-LAST:event_updateMouseClicked
-
     private void boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxActionPerformed
-     String value= box.getSelectedItem().toString();
-     
-     getsta.setText(value);
+    
     }//GEN-LAST:event_boxActionPerformed
 
     private void delete2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete2MouseClicked
@@ -337,24 +284,21 @@ public class addfish extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> box;
     private javax.swing.JPanel delete2;
-    private javax.swing.JTextField fish;
-    private javax.swing.JTextField getsta;
-    private javax.swing.JTextField id;
+    public javax.swing.JTextField fish;
+    public javax.swing.JTextField id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField pri;
-    private javax.swing.JTextField quan;
+    public javax.swing.JTextField pri;
+    public javax.swing.JTextField quan;
     private javax.swing.JPanel save;
     private javax.swing.JLabel save1;
-    private javax.swing.JPanel update;
     // End of variables declaration//GEN-END:variables
 
     private void seticon() {

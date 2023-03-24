@@ -335,7 +335,7 @@ public class main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel account;
     private javax.swing.JPanel dashpane;
-    private javax.swing.JDesktopPane despane;
+    public javax.swing.JDesktopPane despane;
     private javax.swing.JPanel header;
     private javax.swing.JPanel horizon;
     private javax.swing.JLabel jLabel12;

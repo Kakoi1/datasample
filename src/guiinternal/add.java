@@ -317,11 +317,27 @@ public class add extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_delete1MouseExited
 
     private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
-     JFrame mainJFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
+     int rowIndex = table.getSelectedRow();
+     if (rowIndex<0){
+         
+         JOptionPane.showMessageDialog(null, "Plese select an item");
+         
+     }
+     else{
+         TableModel model = table.getModel();
+         update up = new update();
+         up.id.setText(""+model.getValueAt(rowIndex, 0));
+         up.fish.setText(""+model.getValueAt(rowIndex, 1));
+         up.box.setSelectedItem(""+model.getValueAt(rowIndex, 2));
+         up.quan.setText(""+model.getValueAt(rowIndex, 3));
+         up.pri.setText(""+model.getValueAt(rowIndex, 4));
+         
+             JFrame mainJFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
        mainJFrame.dispose();
-    update up = new update();
-    
-   up.setVisible(true);
+        up.setVisible(true);
+         
+     }
+
     }//GEN-LAST:event_updateMouseClicked
 
     private void delete1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete1MouseClicked
