@@ -11,9 +11,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import login.addfish;
 import login.delete;
 import login.main;
@@ -271,7 +274,10 @@ public class add extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_discardMouseEntered
 
     private void discardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_discardMouseClicked
-       
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        TableRowSorter<DefaultTableModel> obj  = new TableRowSorter<>(model);
+        table.setRowSorter(obj);
+        obj.setRowFilter(RowFilter.regexFilter(search.getText()));       
     }//GEN-LAST:event_discardMouseClicked
 
     private void updateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseExited
@@ -310,11 +316,11 @@ public class add extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_adsMouseClicked
 
     private void delete1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete1MouseEntered
-        // TODO add your handling code here:
+    delete1.setBackground(bodycolor);
     }//GEN-LAST:event_delete1MouseEntered
 
     private void delete1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete1MouseExited
-        // TODO add your handling code here:
+     delete1.setBackground(headcolor);
     }//GEN-LAST:event_delete1MouseExited
 
     private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked

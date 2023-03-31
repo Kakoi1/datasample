@@ -72,6 +72,7 @@ Color exit = new Color (153,204,255);
         password = new javax.swing.JPasswordField();
         create = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        show = new javax.swing.JLabel();
         panels = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -116,7 +117,7 @@ Color exit = new Color (153,204,255);
                 usernameActionPerformed(evt);
             }
         });
-        panel2.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 220, 50));
+        panel2.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 220, 50));
 
         login.setBackground(new java.awt.Color(153, 204, 255));
         login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -141,9 +142,9 @@ Color exit = new Color (153,204,255);
         loginLayout.setHorizontalGroup(
             loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                .addContainerGap())
         );
         loginLayout.setVerticalGroup(
             loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,28 +168,34 @@ Color exit = new Color (153,204,255);
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Exit");
 
         javax.swing.GroupLayout cancelLayout = new javax.swing.GroupLayout(cancel);
         cancel.setLayout(cancelLayout);
         cancelLayout.setHorizontalGroup(
             cancelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cancelLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel3)
-                .addContainerGap(33, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cancelLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
         cancelLayout.setVerticalGroup(
             cancelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        panel2.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, -1, -1));
+        panel2.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 80, -1));
 
         password.setBackground(new java.awt.Color(255, 153, 153));
         password.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         password.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-        panel2.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 220, 50));
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
+        panel2.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 220, 50));
 
         create.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         create.setText("Create Account");
@@ -209,6 +216,21 @@ Color exit = new Color (153,204,255);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/kisspng-seed-flower-dark-helmet-vimeo-medical-cannabis-ocean-logo-5b1723af957123.4894901515282431196121.png"))); // NOI18N
         jLabel4.setText("jLabel4");
         panel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, -20, -1, -1));
+
+        show.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login/icons8-show-password-32.png"))); // NOI18N
+        show.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        show.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                showMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                showMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                showMouseExited(evt);
+            }
+        });
+        panel2.add(show, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, -1, -1));
 
         panels.setLayout(null);
         panel2.add(panels, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 280, 270));
@@ -292,6 +314,27 @@ Color exit = new Color (153,204,255);
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameActionPerformed
 
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordActionPerformed
+
+    private void showMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMouseClicked
+    
+      
+    }//GEN-LAST:event_showMouseClicked
+
+    private void showMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMouseEntered
+    
+       
+            password.setEchoChar((char) 0);
+           
+      
+    }//GEN-LAST:event_showMouseEntered
+
+    private void showMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMouseExited
+       password.setEchoChar('*');
+    }//GEN-LAST:event_showMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -343,6 +386,7 @@ Color exit = new Color (153,204,255);
     private javax.swing.JPanel panel2;
     private javax.swing.JPanel panels;
     private javax.swing.JPasswordField password;
+    private javax.swing.JLabel show;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 

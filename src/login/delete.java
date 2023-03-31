@@ -6,6 +6,7 @@
 package login;
 
 import config.dbconnect;
+import guiinternal.add;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
@@ -32,6 +33,17 @@ public class delete extends javax.swing.JFrame {
  Color bodycolor = new Color(153,204,255);
     Color headcolor = new Color(255,153,153);
     Color hover = new Color(0,153,204);
+    
+     
+    public void close(){
+        
+        this.dispose();
+        main m = new main();
+        m.setVisible(true);
+        add up = new add();
+        m.despane.add(up).setVisible(true);
+        
+    }
     
       public void reset(){
     id.setText("");
@@ -287,17 +299,15 @@ public class delete extends javax.swing.JFrame {
     }//GEN-LAST:event_tableMouseClicked
 
     private void delete3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete3MouseClicked
-        this.dispose();
-         main m = new main();
-         m.setVisible(true);
+    close();
     }//GEN-LAST:event_delete3MouseClicked
 
     private void delete3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete3MouseEntered
-        // TODO add your handling code here:
+        delete3.setBackground(bodycolor);
     }//GEN-LAST:event_delete3MouseEntered
 
     private void delete3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete3MouseExited
-        // TODO add your handling code here:
+     delete3.setBackground(headcolor);
     }//GEN-LAST:event_delete3MouseExited
 
     /**
