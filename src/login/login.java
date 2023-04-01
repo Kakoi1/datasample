@@ -1,9 +1,15 @@
 package login;
 
 
+import config.MyConnection;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -271,10 +277,35 @@ Color exit = new Color (153,204,255);
     }//GEN-LAST:event_cancelMouseExited
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
-        main m = new main();
+ 
+        PreparedStatement ps;
+        ResultSet rs;
+        String uname = username.getText();
+        String pass = String.valueOf(password.getPassword());
         
-        this.dispose();
-        m.setVisible(true);
+        String query = "SELECT * FROM `tbl_costumer` WHERE `c_username`=? AND `c_password`=?";
+        
+        try {
+            ps = MyConnection.getConnection().prepareStatement(query);
+            
+            ps.setString(1, uname);
+            ps.setString(2, pass);
+            
+            rs = ps.executeQuery();
+            
+            if(rs.next())
+            {
+                    main mf = new main();
+                    mf.setVisible(true);                   
+                    this.dispose();
+            }
+            else{
+                    JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
+                }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_loginMouseClicked
 
     private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked

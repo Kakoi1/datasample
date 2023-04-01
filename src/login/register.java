@@ -5,9 +5,16 @@
  */
 package login;
 
+import config.MyConnection;
+import config.dbconnect;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,8 +34,8 @@ public class register extends javax.swing.JFrame {
         setSize(360, 460);
         nm.setBackground(new Color(255,255,255,50));
         us.setBackground(new Color(255,255,255,50));
-        pas.setBackground(new Color(255,255,255,50));
-        repas.setBackground(new Color(255,255,255,50));
+        pass.setBackground(new Color(255,255,255,50));
+        repass.setBackground(new Color(255,255,255,50));
         ad.setBackground(new Color(255,255,255,50));
         no.setBackground(new Color(255,255,255,50));
         
@@ -38,6 +45,31 @@ Color hover = new Color (255,153,153);
 Color exit = new Color (0,153,204);
 
  Border empty = BorderFactory.createEmptyBorder();
+ 
+  public boolean checkUsername(String username)
+    {
+        PreparedStatement ps;
+        ResultSet rs;
+        boolean checkUser = false;
+        String query = "SELECT * FROM `tbl_costumer` WHERE `c_username`=?";
+        
+        try {
+            ps = MyConnection.getConnection().prepareStatement(query);
+            ps.setString(1, username);
+            
+            rs = ps.executeQuery();
+            
+            if(rs.next())
+            {
+                checkUser = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return checkUser;
+    }
+ 
+ 
     void buttonBorderAnimation(JPanel panel){
         
         panel.setBackground(hover);
@@ -69,8 +101,6 @@ Color exit = new Color (0,153,204);
         jLabel6 = new javax.swing.JLabel();
         nm = new javax.swing.JTextField();
         us = new javax.swing.JTextField();
-        pas = new javax.swing.JTextField();
-        repas = new javax.swing.JTextField();
         no = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         ad = new javax.swing.JTextArea();
@@ -78,6 +108,8 @@ Color exit = new Color (0,153,204);
         jLabel7 = new javax.swing.JLabel();
         cancel = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        pass = new javax.swing.JPasswordField();
+        repass = new javax.swing.JPasswordField();
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -150,16 +182,6 @@ Color exit = new Color (0,153,204);
         us.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jPanel1.add(us);
         us.setBounds(140, 150, 200, 30);
-
-        pas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        pas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel1.add(pas);
-        pas.setBounds(140, 190, 200, 30);
-
-        repas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        repas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel1.add(repas);
-        repas.setBounds(140, 230, 200, 30);
 
         no.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         no.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -246,6 +268,19 @@ Color exit = new Color (0,153,204);
         jPanel1.add(cancel);
         cancel.setBounds(60, 410, 90, 40);
 
+        pass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jPanel1.add(pass);
+        pass.setBounds(140, 190, 200, 30);
+
+        repass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        repass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                repassActionPerformed(evt);
+            }
+        });
+        jPanel1.add(repass);
+        repass.setBounds(140, 230, 200, 30);
+
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/kisspng-seed-flower-dark-helmet-vimeo-medical-cannabis-ocean-logo-5b1723af957123.4894901515282431196121.png"))); // NOI18N
         jLabel10.setText("jLabel10");
         jPanel1.add(jLabel10);
@@ -271,10 +306,30 @@ Color exit = new Color (0,153,204);
     }//GEN-LAST:event_nmActionPerformed
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
-        main m = new main();
+    dbconnect dbc = new dbconnect();
+ if(us.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Add A Username");
+        }
+        
+        else if(pass.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Add A Password");
+        }
+        else if(!pass.getText().equals(repass.getText()))
+        {
+            JOptionPane.showMessageDialog(null, "Retype The Password Again");
+        }
+        else if(checkUsername(us.getText()))
+        {
+            JOptionPane.showMessageDialog(null, "This Username Already Exist");
+        }
+        else{
+      dbc.insertData("INSERT INTO `tbl_costumer`(`c_name`, `c_username`, `c_password`, `c_contact_no.`, `c_address`) "
 
-        this.dispose();
-        m.setVisible(true);
+            + "VALUES ('"+nm.getText()+"', '"+us.getText()+"','"+pass.getText()+"','"+no.getText()+"','"+ad.getText()+"')");
+        JOptionPane.showMessageDialog(null,"Successfull added");
+        }
     }//GEN-LAST:event_loginMouseClicked
 
     private void loginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseEntered
@@ -287,7 +342,7 @@ Color exit = new Color (0,153,204);
 
     private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
       
-        if(!nm.getText().isEmpty()||!us.getText().isEmpty()||!pas.getText().isEmpty()){
+        if(!nm.getText().isEmpty()||!us.getText().isEmpty()||!pass.getText().isEmpty()){
         int a = JOptionPane.showConfirmDialog(null, "Dicard this this registration form?");
         if(a==JOptionPane.YES_OPTION){
         
@@ -312,6 +367,10 @@ Color exit = new Color (0,153,204);
     private void cancelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseExited
         buttonDefaultColor(cancel);
     }//GEN-LAST:event_cancelMouseExited
+
+    private void repassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -367,8 +426,8 @@ Color exit = new Color (0,153,204);
     private javax.swing.JPanel login;
     private javax.swing.JTextField nm;
     private javax.swing.JTextField no;
-    private javax.swing.JTextField pas;
-    private javax.swing.JTextField repas;
+    private javax.swing.JPasswordField pass;
+    private javax.swing.JPasswordField repass;
     private javax.swing.JTextField us;
     // End of variables declaration//GEN-END:variables
 
