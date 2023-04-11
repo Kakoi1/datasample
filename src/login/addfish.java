@@ -142,7 +142,7 @@ public class addfish extends javax.swing.JFrame {
         jPanel3.setLayout(null);
 
         jLabel11.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel11.setText("Add Fish Details");
+        jLabel11.setText("Fish Details");
         jPanel3.add(jLabel11);
         jLabel11.setBounds(10, 10, 290, 30);
 

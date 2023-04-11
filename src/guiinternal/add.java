@@ -62,7 +62,9 @@ public class add extends javax.swing.JInternalFrame {
     Color headcolor = new Color(255,153,153);
     Color hover = new Color(0,153,204);
     
-    public String action;
+    
+    
+//    public String action;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -349,11 +351,27 @@ public class add extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_updateMouseClicked
 
     private void delete1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete1MouseClicked
-   JFrame mainJFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
-       mainJFrame.dispose();
-    delete del = new delete();
+int rowIndex = table.getSelectedRow();
+       
+       
+       if(rowIndex < 0){
+           JOptionPane.showMessageDialog(null, "Please select a data first");
+       }else{
+            TableModel model = table.getModel();
+            Object value = model.getValueAt(rowIndex, 0);
+            String id = value.toString();
+             int a=JOptionPane.showConfirmDialog(null,"Are you sure to delete id "+id);  
+                    if(a==JOptionPane.YES_OPTION){  
+                            dbconnect dbc = new dbconnect();
+                            int f_id = Integer.parseInt(id);
+                            dbc.deleteData(f_id,"tbl_fish","f_code");
+                            displaydata();
+         
+                    }    
+       
+       }
     
-   del.setVisible(true);
+
     }//GEN-LAST:event_delete1MouseClicked
 
 
@@ -371,7 +389,7 @@ public class add extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField search;
+    public javax.swing.JTextField search;
     private javax.swing.JTable table;
     private javax.swing.JPanel update;
     // End of variables declaration//GEN-END:variables

@@ -5,14 +5,21 @@
  */
 package guiinternal;
 
+import config.MyConnection;
 import login.login;
 import java.awt.Color;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import login.*;
 import login.login;
+import login.login;
+import login.main;
 
 /**
  *
@@ -20,22 +27,21 @@ import login.login;
  */
 public class settings extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form settings
-     */
     public settings() {
         initComponents();
         
          this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
          BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
          bi.setNorthPane(null);
-       
+
     }
     Color headcolor = new Color(0,153,204);
     Color bodycolor = new Color(153,204,255);
-    
-   
-    
+
+
+
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,14 +55,14 @@ public class settings extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        jname = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        name = new javax.swing.JTextField();
+        c_cont = new javax.swing.JTextField();
+        c_add = new javax.swing.JTextField();
+        c_name = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         edit = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -66,10 +72,8 @@ public class settings extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel1.setLayout(null);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(255, 153, 153));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -81,69 +85,55 @@ public class settings extends javax.swing.JInternalFrame {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-administrator-male-100.png"))); // NOI18N
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 110));
 
-        jLabel12.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Roland");
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 120, -1));
+        jname.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        jname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel3.add(jname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 120, 20));
 
-        jPanel1.add(jPanel3);
-        jPanel3.setBounds(640, 0, 120, 160);
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, -1, 160));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jLabel1.setText("Account Settings");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(10, 10, 290, 30);
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 290, 30));
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel2.setText("Location:");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(10, 130, 100, 30);
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 100, 30));
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel5.setText("User name:");
-        jPanel1.add(jLabel5);
-        jLabel5.setBounds(10, 50, 100, 30);
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 100, 30));
 
         jLabel10.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel10.setText("Contact info:");
-        jPanel1.add(jLabel10);
-        jLabel10.setBounds(10, 90, 100, 30);
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 100, 30));
 
-        jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(153, 204, 255));
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jTextField1.setText("09090909");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        c_cont.setEditable(false);
+        c_cont.setBackground(new java.awt.Color(153, 204, 255));
+        c_cont.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        c_cont.setBorder(null);
+        c_cont.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                c_contActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(110, 90, 150, 30);
+        jPanel1.add(c_cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 150, 30));
 
-        jTextField2.setEditable(false);
-        jTextField2.setBackground(new java.awt.Color(153, 204, 255));
-        jTextField2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jTextField2.setText("cebu");
-        jTextField2.setBorder(null);
-        jPanel1.add(jTextField2);
-        jTextField2.setBounds(110, 130, 150, 30);
+        c_add.setEditable(false);
+        c_add.setBackground(new java.awt.Color(153, 204, 255));
+        c_add.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        c_add.setBorder(null);
+        jPanel1.add(c_add, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 150, 30));
 
-        name.setEditable(false);
-        name.setBackground(new java.awt.Color(153, 204, 255));
-        name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        name.setText("Roland");
-        name.setBorder(null);
-        name.addActionListener(new java.awt.event.ActionListener() {
+        c_name.setEditable(false);
+        c_name.setBackground(new java.awt.Color(153, 204, 255));
+        c_name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        c_name.setBorder(null);
+        c_name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameActionPerformed(evt);
+                c_nameActionPerformed(evt);
             }
         });
-        jPanel1.add(name);
-        name.setBounds(110, 50, 150, 30);
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 160));
+        jPanel1.add(c_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 150, 30));
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 204));
         jPanel2.setLayout(null);
@@ -203,7 +193,20 @@ public class settings extends javax.swing.JInternalFrame {
         jPanel2.add(out);
         out.setBounds(530, 40, 160, 160);
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 810, 290));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -228,13 +231,13 @@ public class settings extends javax.swing.JInternalFrame {
         out.setBackground(headcolor);
     }//GEN-LAST:event_outMouseExited
 
-    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
+    private void c_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nameActionPerformed
+    }//GEN-LAST:event_c_nameActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void c_contActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_contActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_c_contActionPerformed
 
     private void outMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_outMouseClicked
         JFrame mainFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
@@ -245,11 +248,13 @@ public class settings extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTextField c_add;
+    public javax.swing.JTextField c_cont;
+    public javax.swing.JTextField c_name;
     private javax.swing.JPanel edit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -261,9 +266,7 @@ public class settings extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField name;
+    public javax.swing.JLabel jname;
     private javax.swing.JPanel out;
     // End of variables declaration//GEN-END:variables
 }

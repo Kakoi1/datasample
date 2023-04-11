@@ -255,24 +255,7 @@ public class delete extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseClicked
-    int rowIndex = table.getSelectedRow();
-       
-       
-       if(rowIndex < 0){
-           JOptionPane.showMessageDialog(null, "Please select a data first");
-       }else{
-            TableModel model = table.getModel();
-            Object value = model.getValueAt(rowIndex, 0);
-            String id = value.toString();
-             int a=JOptionPane.showConfirmDialog(null,"Are you sure?");  
-                    if(a==JOptionPane.YES_OPTION){  
-                            dbconnect dbc = new dbconnect();
-                            dbc.deleteData(Integer.parseInt(id));
-                            displaydata();
-                     reset();
-                    }    
-       
-       }
+    
     }//GEN-LAST:event_deleteMouseClicked
 
     private void deleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseEntered

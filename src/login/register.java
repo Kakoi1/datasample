@@ -46,28 +46,29 @@ Color exit = new Color (0,153,204);
 
  Border empty = BorderFactory.createEmptyBorder();
  
-  public boolean checkUsername(String username)
-    {
-        PreparedStatement ps;
-        ResultSet rs;
-        boolean checkUser = false;
-        String query = "SELECT * FROM `tbl_costumer` WHERE `c_username`=?";
-        
-        try {
-            ps = MyConnection.getConnection().prepareStatement(query);
-            ps.setString(1, username);
-            
-            rs = ps.executeQuery();
-            
-            if(rs.next())
-            {
-                checkUser = true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         return checkUser;
-    }
+//  public boolean checkUsername(String username)
+//    {
+//        PreparedStatement ps;
+//        ResultSet rs;
+//        boolean checkUser = false;
+//        String query = "SELECT * FROM `tbl_costumer` WHERE `c_username`=?";
+//        
+//        try {
+//            ps = MyConnection.getConnection().prepareStatement(query);
+//            ps.setString(1, username);
+//            
+//            rs = ps.executeQuery();
+//            
+//            if(rs.next())
+//            {
+//                checkUser = true;
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//         return checkUser;
+//    }
+
  
  
     void buttonBorderAnimation(JPanel panel){
@@ -307,7 +308,9 @@ Color exit = new Color (0,153,204);
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
     dbconnect dbc = new dbconnect();
- if(us.getText().equals(""))
+      String uname = us.getText();
+     int num= dbc.checkUsername("SELECT * FROM `tbl_costumer` WHERE `c_username`=?", uname);
+    if(us.getText().equals(""))
         {
             JOptionPane.showMessageDialog(null, "Add A Username");
         }
@@ -319,16 +322,20 @@ Color exit = new Color (0,153,204);
         else if(!pass.getText().equals(repass.getText()))
         {
             JOptionPane.showMessageDialog(null, "Retype The Password Again");
-        }
-        else if(checkUsername(us.getText()))
+        }    
+          else if(num==1)
         {
             JOptionPane.showMessageDialog(null, "This Username Already Exist");
         }
+      
         else{
       dbc.insertData("INSERT INTO `tbl_costumer`(`c_name`, `c_username`, `c_password`, `c_contact_no.`, `c_address`) "
 
             + "VALUES ('"+nm.getText()+"', '"+us.getText()+"','"+pass.getText()+"','"+no.getText()+"','"+ad.getText()+"')");
         JOptionPane.showMessageDialog(null,"Successfull added");
+  login li = new login();
+         li.setVisible(true);
+         this.dispose();
         }
     }//GEN-LAST:event_loginMouseClicked
 

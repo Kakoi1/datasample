@@ -2,6 +2,8 @@ package login;
 
 
 import config.MyConnection;
+import config.dbconnect;
+import guiinternal.settings;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -26,7 +28,9 @@ import javax.swing.border.Border;
  * @author College-PC
  */
 public class login extends javax.swing.JFrame {
-
+  
+   main m = new main();
+   settings set = new settings();
     /**
      * Creates new form login
      */
@@ -40,6 +44,10 @@ public class login extends javax.swing.JFrame {
     }
 Color hover = new Color (255,153,153);
 Color exit = new Color (153,204,255);
+
+
+
+
 
     Border empty = BorderFactory.createEmptyBorder();
     void buttonBorderAnimation(JPanel panel){
@@ -277,35 +285,64 @@ Color exit = new Color (153,204,255);
     }//GEN-LAST:event_cancelMouseExited
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
+main m = new main();
+dbconnect dbc = new dbconnect();
+ String uname = username.getText();
+ String pass = String.valueOf(password.getPassword());
  
-        PreparedStatement ps;
-        ResultSet rs;
-        String uname = username.getText();
-        String pass = String.valueOf(password.getPassword());
+
+ int num=dbc.loginData("SELECT * FROM `tbl_costumer` WHERE `c_username`=? AND `c_password`=?",uname,pass);
+
+if(num==1){
+     JOptionPane.showMessageDialog(null, "login Successfully!");
+     dbc.infoData("SELECT `c_name`, `c_contact_no.`, `c_address` FROM `tbl_costumer` WHERE `c_username`=?",uname);
+     
+      this.dispose();
+      m.setVisible(true);
+//      m.despane.add(set).setVisible(true);
+}
+else{
+     JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
+}
+
+
+//          main m = new main();
+//        PreparedStatement ps;
+//        ResultSet rs;
+//        String uname = username.getText();
+//        String pass = String.valueOf(password.getPassword());
+//        
+//
+//           String query = "SELECT `c_name`, `c_contact_no.`, `c_address` FROM `tbl_costumer` WHERE `c_username`=? AND `c_password`=?";
+//        try {
+//            ps = MyConnection.getConnection().prepareStatement(query);
+//            
+//            ps.setString(1, uname);
+//            ps.setString(2, pass);          
+//            rs = ps.executeQuery();
+//
+//            if(rs.next())
+//            {
+//                 this.dispose();
+//              m.setVisible(true);
+//                m.despane.add(set).setVisible(true);
+//             
+//                set.c_name.setText(rs.getString("c_name"));
+//
+//               set.c_cont.setText(rs.getString("c_contact_no."));
+//
+//               set.c_add.setText(rs.getString("c_address"));
+//
+//             
+//            }
+//            else{
+//                    JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
+//                }
+//            
+//        } catch (SQLException ex) {
+//            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
-        String query = "SELECT * FROM `tbl_costumer` WHERE `c_username`=? AND `c_password`=?";
-        
-        try {
-            ps = MyConnection.getConnection().prepareStatement(query);
-            
-            ps.setString(1, uname);
-            ps.setString(2, pass);
-            
-            rs = ps.executeQuery();
-            
-            if(rs.next())
-            {
-                    main mf = new main();
-                    mf.setVisible(true);                   
-                    this.dispose();
-            }
-            else{
-                    JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
-                }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_loginMouseClicked
 
     private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
@@ -418,7 +455,7 @@ Color exit = new Color (153,204,255);
     private javax.swing.JPanel panels;
     private javax.swing.JPasswordField password;
     private javax.swing.JLabel show;
-    private javax.swing.JTextField username;
+    public javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 
     private void seticon() {

@@ -5,6 +5,7 @@
  */
 package config;
 
+import guiinternal.settings;
 import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -35,23 +36,23 @@ public class dbconnect {
         return resultSet;
     }
     
-    public void deleteData(int id) {
+    public void deleteData(int id, String tables, String table_id) {
     try {
        
-        PreparedStatement stmt = connection.prepareStatement("DELETE FROM tbl_fish WHERE f_code = ?");
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM `"+tables+"`WHERE`"+table_id+"`=?");
         stmt.setInt(1, id);
        
         int rowsDeleted = stmt.executeUpdate();
 
         if (rowsDeleted > 0) {
-            System.out.println(rowsDeleted + " rows were deleted.");
+            System.out.println( " deleted succesfully.");
         } else {
             System.out.println("No rows were deleted.");
         }
        
        
         stmt.close();
-        connection.close();
+
        
     } catch (SQLException e) {
         System.out.println("Error deleting data: " + e.getMessage());
@@ -84,11 +85,92 @@ public class dbconnect {
                 System.out.println("Data update failed!");
                 num = 0;
             }
+             pstmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
        
         return num;
     }
+     
+    public int loginData(String sql,String user,String pass){
+      
+        int num=0;
+
+            try{
+                
+         ResultSet rs;
+         PreparedStatement pstmt = connection.prepareStatement(sql);
+         pstmt.setString(1,user);
+         pstmt.setString(2, pass);
+        rs = pstmt.executeQuery();
+         
+          if(rs.next()) {
+                System.out.println("Login successfully!");
+                num = 1;    
+            } else {
+                System.out.println("log in failed!");
+                num=0;
+            }
+          pstmt.close();
+           }catch(SQLException e){
+                System.out.println("Connection Error: "+e);
+    }
+return num;
+}
+    public int infoData(String sql,String uname){
+          settings set = new settings();
+          
+        int num =0;
+        
+          try {
+         PreparedStatement pstmt = connection.prepareStatement(sql);
+          ResultSet rs;
+          pstmt.setString(1,uname);
+           rs = pstmt.executeQuery();
+         
+          if(rs.next()) {
+              String n = rs.getString("c_name");
+              System.out.println(rs.getString("c_name"));
+               System.out.println(rs.getString("c_contact_no."));
+               System.out.println(rs.getString("c_address"));
+                System.out.println("Data updated successfully!");
+                
+                set.jname.setText(rs.getString("c_name"));
+               set.c_cont.setText(rs.getString("c_contact_no."));
+               set.c_add.setText(rs.getString("c_address"));   
+                
+            } else {
+                System.out.println("Data update failed!");
+                num=0;
+            }
+          pstmt.close();
+           }catch(SQLException e){
+                System.out.println("Connection Error: "+e);
+    }
+    return num;
+}
     
+      public int checkUsername(String sql,String username)
+    {
+
+  int num=0;
+
+         try{
+                
+         ResultSet rs;
+         PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, username);
+            
+            rs = pstmt.executeQuery();
+              if(rs.next())
+            {
+                num=1;
+            }
+          pstmt.close();
+          }catch(SQLException e){
+                System.out.println("Connection Error: "+e);
+    }
+       return num;  
+}
 }
