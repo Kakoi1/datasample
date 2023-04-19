@@ -17,6 +17,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import login.addfish;
 import login.update;
 import net.proteanit.sql.DbUtils;
 
@@ -41,12 +42,12 @@ public class costumer extends javax.swing.JInternalFrame {
         search.setBackground(new Color(0,0,0,0));
         
     }
-    
+  
      public void displaydata(){
         try{
      dbconnect db = new dbconnect();
      
-     ResultSet rs = db.getData("SELECT * FROM tbl_costumer");
+     ResultSet rs = db.getData("SELECT * FROM tbl_user");
      
      table.setModel(DbUtils.resultSetToTableModel(rs));
         
@@ -84,6 +85,8 @@ public class costumer extends javax.swing.JInternalFrame {
         table = new javax.swing.JTable();
         delete1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        add = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -126,7 +129,7 @@ public class costumer extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel2.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 70, 30));
+        jPanel2.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 70, 30));
 
         discard.setBackground(new java.awt.Color(255, 153, 153));
         discard.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -182,7 +185,7 @@ public class costumer extends javax.swing.JInternalFrame {
 
         jScrollPane1.setViewportView(table);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 150, 810, 290));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 150, 800, 270));
 
         delete1.setBackground(new java.awt.Color(255, 153, 153));
         delete1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -205,7 +208,44 @@ public class costumer extends javax.swing.JInternalFrame {
         jLabel8.setText("Delete");
         delete1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(delete1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 70, 30));
+        jPanel2.add(delete1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 70, 30));
+
+        add.setBackground(new java.awt.Color(255, 153, 153));
+        add.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        add.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                addMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                addMouseExited(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Add");
+
+        javax.swing.GroupLayout addLayout = new javax.swing.GroupLayout(add);
+        add.setLayout(addLayout);
+        addLayout.setHorizontalGroup(
+            addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        addLayout.setVerticalGroup(
+            addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addLayout.createSequentialGroup()
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 70, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 440));
 
@@ -234,12 +274,12 @@ public class costumer extends javax.swing.JInternalFrame {
             TableModel model = table.getModel();
             update up = new update();
             up.id.setText(""+model.getValueAt(rowIndex, 0));
-            up.name.setText(""+model.getValueAt(rowIndex, 1));
-            up.uname.setText(""+model.getValueAt(rowIndex, 2));
-            up.pass.setText(""+model.getValueAt(rowIndex, 3));
-            up.cont.setText(""+model.getValueAt(rowIndex, 4));
-            up.add.setText(""+model.getValueAt(rowIndex, 5));
-
+            up.name.setText(""+model.getValueAt(rowIndex, 1));        
+            up.cont.setText(""+model.getValueAt(rowIndex, 2));
+            up.add.setText(""+model.getValueAt(rowIndex, 3));
+            up.action = "Edit";
+            up.save1.setText("Update");
+            
 
             JFrame mainJFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
             mainJFrame.dispose();
@@ -309,13 +349,33 @@ int rowIndex = table.getSelectedRow();
         delete1.setBackground(headcolor);
     }//GEN-LAST:event_delete1MouseExited
 
+    private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
+         JFrame mainJFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
+       mainJFrame.dispose();
+    update af = new update();
+    af.action = "Add";
+    af.save1.setText("Save");
+   af.setVisible(true);
+    
+    }//GEN-LAST:event_addMouseClicked
+
+    private void addMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseEntered
+     add.setBackground(bodycolor);
+    }//GEN-LAST:event_addMouseEntered
+
+    private void addMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseExited
+      add.setBackground(headcolor);
+    }//GEN-LAST:event_addMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel add;
     private javax.swing.JPanel delete1;
     private javax.swing.JPanel discard;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -55,10 +55,6 @@ public class main extends javax.swing.JFrame {
         horizon = new javax.swing.JPanel();
         dashpane = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        dashpane2 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        dashpane3 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
         retri = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         report = new javax.swing.JPanel();
@@ -82,6 +78,7 @@ public class main extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         horizon.setBackground(new java.awt.Color(255, 153, 153));
+        horizon.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         dashpane.setBackground(new java.awt.Color(255, 153, 153));
         dashpane.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -102,47 +99,7 @@ public class main extends javax.swing.JFrame {
         jLabel7.setText("Dashboard");
         dashpane.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 170, 20));
 
-        dashpane2.setBackground(new java.awt.Color(255, 153, 153));
-        dashpane2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dashpane2MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                dashpane2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                dashpane2MouseExited(evt);
-            }
-        });
-        dashpane2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Dashboard");
-        dashpane2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 170, 20));
-
-        dashpane3.setBackground(new java.awt.Color(255, 153, 153));
-        dashpane3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dashpane3MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                dashpane3MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                dashpane3MouseExited(evt);
-            }
-        });
-        dashpane3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel10.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Dashboard");
-        dashpane3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 170, 20));
-
-        dashpane2.add(dashpane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        dashpane.add(dashpane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        horizon.add(dashpane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 172, -1, 43));
 
         retri.setBackground(new java.awt.Color(255, 153, 153));
         retri.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -163,6 +120,8 @@ public class main extends javax.swing.JFrame {
         jLabel13.setText("Userpage");
         retri.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 170, 20));
 
+        horizon.add(retri, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 269, 168, 42));
+
         report.setBackground(new java.awt.Color(255, 153, 153));
         report.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -181,6 +140,8 @@ public class main extends javax.swing.JFrame {
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("View Report");
         report.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 170, 20));
+
+        horizon.add(report, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 221, -1, 42));
 
         account.setBackground(new java.awt.Color(255, 153, 153));
         account.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -201,16 +162,20 @@ public class main extends javax.swing.JFrame {
         jLabel14.setText("Account");
         account.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 170, 20));
 
+        horizon.add(account, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 447, 168, 42));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Welcome");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        horizon.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 170, -1));
 
         name.setEditable(false);
         name.setBackground(new java.awt.Color(255, 153, 153));
         name.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         name.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         name.setBorder(null);
+        horizon.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 87, 170, 25));
 
         soldpro.setBackground(new java.awt.Color(255, 153, 153));
         soldpro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -231,45 +196,7 @@ public class main extends javax.swing.JFrame {
         jLabel8.setText("Sold Product");
         soldpro.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 170, 20));
 
-        javax.swing.GroupLayout horizonLayout = new javax.swing.GroupLayout(horizon);
-        horizon.setLayout(horizonLayout);
-        horizonLayout.setHorizontalGroup(
-            horizonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(horizonLayout.createSequentialGroup()
-                .addGroup(horizonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(name, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(horizonLayout.createSequentialGroup()
-                        .addGroup(horizonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(report, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dashpane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(account, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(retri, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, horizonLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(soldpro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        horizonLayout.setVerticalGroup(
-            horizonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(horizonLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(dashpane, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(report, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(retri, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(soldpro, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                .addComponent(account, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        horizon.add(soldpro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 317, -1, 39));
 
         jPanel1.add(horizon);
         horizon.setBounds(0, 0, 170, 500);
@@ -411,30 +338,6 @@ despane.add(set).setVisible(true);
         soldpro.setBackground(dashcolor);
     }//GEN-LAST:event_soldproMouseExited
 
-    private void dashpane3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashpane3MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dashpane3MouseClicked
-
-    private void dashpane3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashpane3MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dashpane3MouseEntered
-
-    private void dashpane3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashpane3MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dashpane3MouseExited
-
-    private void dashpane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashpane2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dashpane2MouseClicked
-
-    private void dashpane2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashpane2MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dashpane2MouseEntered
-
-    private void dashpane2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashpane2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dashpane2MouseExited
-
     /**
      * @param args the command line arguments
      */
@@ -474,19 +377,15 @@ despane.add(set).setVisible(true);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel account;
     private javax.swing.JPanel dashpane;
-    private javax.swing.JPanel dashpane2;
-    private javax.swing.JPanel dashpane3;
     public javax.swing.JDesktopPane despane;
     private javax.swing.JPanel header;
     private javax.swing.JPanel horizon;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel mainclose;
     private javax.swing.JLabel mainmini;

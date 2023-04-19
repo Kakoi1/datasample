@@ -6,10 +6,12 @@
 package login;
 
 import config.MyConnection;
+import config.PasswordHasher;
 import config.dbconnect;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -307,35 +309,30 @@ Color exit = new Color (0,153,204);
     }//GEN-LAST:event_nmActionPerformed
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
-    dbconnect dbc = new dbconnect();
-      String uname = us.getText();
-     int num= dbc.checkUsername("SELECT * FROM `tbl_costumer` WHERE `c_username`=?", uname);
-    if(us.getText().equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Add A Username");
-        }
-        
-        else if(pass.getText().equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Add A Password");
-        }
-        else if(!pass.getText().equals(repass.getText()))
-        {
+        dbconnect dbc = new dbconnect();
+        String uname = us.getText();
+        int num = dbc.checkUsername("SELECT * FROM `tbl_costumer` WHERE `c_username`=?", uname);
+        if (us.getText().equals("") || nm.getText().equals("") || pass.getText().equals("") || no.getText().equals("") || ad.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "All field must be inputed!!");
+        } else if (!pass.getText().equals(repass.getText())) {
             JOptionPane.showMessageDialog(null, "Retype The Password Again");
-        }    
-          else if(num==1)
-        {
+        } else if (num == 1) {
             JOptionPane.showMessageDialog(null, "This Username Already Exist");
-        }
-      
-        else{
-      dbc.insertData("INSERT INTO `tbl_costumer`(`c_name`, `c_username`, `c_password`, `c_contact_no.`, `c_address`) "
+        } else {
 
-            + "VALUES ('"+nm.getText()+"', '"+us.getText()+"','"+pass.getText()+"','"+no.getText()+"','"+ad.getText()+"')");
-        JOptionPane.showMessageDialog(null,"Successfull added");
-  login li = new login();
-         li.setVisible(true);
-         this.dispose();
+            String password;
+            try {
+                password = PasswordHasher.hashPassword(pass.getText());
+                dbc.insertData("INSERT INTO `tbl_costumer`(`c_name`, `c_username`, `c_password`, `c_contact_no.`, `c_address`) "
+                        + "VALUES ('" + nm.getText() + "', '" + us.getText() + "','" + password + "','" + no.getText() + "','" + ad.getText() + "')");
+                JOptionPane.showMessageDialog(null, "Successfull added");
+                login li = new login();
+                li.setVisible(true);
+                this.dispose();
+            } catch (NoSuchAlgorithmException ex) {
+                System.out.println("" + ex);
+            }
+
         }
     }//GEN-LAST:event_loginMouseClicked
 

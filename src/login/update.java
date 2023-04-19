@@ -42,13 +42,8 @@ public class update extends javax.swing.JFrame {
     Color headcolor = new Color(255,153,153);
     Color hover = new Color(0,153,204);
     
-     public void reset(){
-    id.setText("");
-    name.setText("");
-    cont.setText("");
-    uname.setText("");
-        
-    }
+      public String action;
+   
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,18 +59,14 @@ public class update extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         cont = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
         id = new javax.swing.JTextField();
         save = new javax.swing.JPanel();
         save1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        uname = new javax.swing.JTextField();
         delete3 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        pass = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         add = new javax.swing.JTextArea();
@@ -89,7 +80,7 @@ public class update extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Costumer id:");
+        jLabel1.setText("User id:");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 90, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -106,24 +97,15 @@ public class update extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Contact no.:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 80, 30));
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel9.setText("Username:");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 70, 30));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 80, 30));
 
         cont.setBackground(new java.awt.Color(204, 204, 204));
         cont.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         cont.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cont.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 190, 30));
+        jPanel2.add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 190, 30));
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel10.setText("Password:");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 70, 30));
-
+        id.setEditable(false);
         id.setBackground(new java.awt.Color(204, 204, 204));
         id.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -151,7 +133,7 @@ public class update extends javax.swing.JFrame {
         save1.setText("Save");
         save.add(save1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 70, 30));
+        jPanel2.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, 70, 30));
 
         jPanel3.setBackground(new java.awt.Color(153, 204, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -163,12 +145,6 @@ public class update extends javax.swing.JFrame {
         jLabel11.setBounds(10, 10, 290, 30);
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 60));
-
-        uname.setBackground(new java.awt.Color(204, 204, 204));
-        uname.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        uname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        uname.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.add(uname, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 190, 30));
 
         delete3.setBackground(new java.awt.Color(255, 153, 153));
         delete3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -191,25 +167,19 @@ public class update extends javax.swing.JFrame {
         jLabel13.setText("Cancel");
         delete3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(delete3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 420, 70, 30));
-
-        pass.setBackground(new java.awt.Color(204, 204, 204));
-        pass.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        pass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 190, 30));
+        jPanel2.add(delete3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, 70, 30));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("Address:");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 80, 30));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 80, 30));
 
         add.setColumns(20);
         add.setRows(5);
         add.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jScrollPane1.setViewportView(add);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 190, -1));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 190, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -221,7 +191,9 @@ public class update extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 63, Short.MAX_VALUE))
         );
 
         pack();
@@ -230,11 +202,11 @@ public class update extends javax.swing.JFrame {
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
   dbconnect dbc = new dbconnect();
-  
-  int num = dbc.updateData("UPDATE tbl_costumer "
-                  + "SET c_name = '"+name.getText()+"', c_username='"+uname.getText()+"', "
-                        + "c_password ='"+pass.getText()+"', `c_contact_no.`='"+cont.getText()+"', c_address ='"+add.getText()+"'  "
-                                + "WHERE c_id = '"+id.getText()+"'");
+  if(action.equals("Update")){
+  int num = dbc.updateData("UPDATE tbl_user "
+                  + "SET `u_name` = '"+name.getText()+"', "
+                        + "`u_contact_no.` ='"+cont.getText()+"',`u_address` ='"+add.getText()+"'  "
+                                + "WHERE `u_id` = '"+id.getText()+"'");
   
     
              if(num == 0){
@@ -244,7 +216,21 @@ public class update extends javax.swing.JFrame {
         close();
         }
            
+  }else if(action.equals("Add")){
+      
+        if(name.getText().isEmpty()||cont.getText().isEmpty()||add.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "All field must be inputed!! ");        
+    }
+    else{
+        dbc.insertData("INSERT INTO tbl_user (`u_name`, `u_address`, `u_contact_no.`) "
+
+            + "VALUES ('"+name.getText()+"', '"+cont.getText()+"', '"+add.getText()+"')");
+        JOptionPane.showMessageDialog(null,"Successfull added");
         
+        close();
+    }  
+      
+  } 
 
     }//GEN-LAST:event_saveMouseClicked
 
@@ -257,9 +243,7 @@ public class update extends javax.swing.JFrame {
     }//GEN-LAST:event_saveMouseExited
 
     private void delete3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete3MouseClicked
-    this.dispose();
-         main m = new main();
-         m.setVisible(true);
+close();
     }//GEN-LAST:event_delete3MouseClicked
 
     private void delete3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete3MouseEntered
@@ -311,21 +295,17 @@ public class update extends javax.swing.JFrame {
     private javax.swing.JPanel delete3;
     public javax.swing.JTextField id;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextField name;
-    public javax.swing.JTextField pass;
     private javax.swing.JPanel save;
-    private javax.swing.JLabel save1;
-    public javax.swing.JTextField uname;
+    public javax.swing.JLabel save1;
     // End of variables declaration//GEN-END:variables
 
     private void seticon() {

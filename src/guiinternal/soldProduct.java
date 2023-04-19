@@ -45,9 +45,9 @@ public class soldProduct extends javax.swing.JInternalFrame {
      ResultSet rs = db.getData("SELECT tbl_fish.f_code,"
              + " tbl_fish.f_name,"
              + " tbl_fish.f_price,"
-             + " tbl_costumer.c_id, tbl_costumer.c_name, tbl_soldproduct.sp_status FROM tbl_soldproduct "
+             + " tbl_user.u_id, tbl_user.u_name, tbl_soldproduct.sp_status FROM tbl_soldproduct "
              + "LEFT JOIN tbl_fish ON tbl_soldproduct.f_code = tbl_fish.f_code "
-             + "LEFT JOIN tbl_costumer ON tbl_soldproduct.c_id = tbl_costumer.c_id");
+             + "LEFT JOIN tbl_user ON tbl_soldproduct.u_id = tbl_user.u_id");
      
      table.setModel(DbUtils.resultSetToTableModel(rs));
         rs.close();
@@ -171,7 +171,7 @@ public class soldProduct extends javax.swing.JInternalFrame {
         jPanel4.setBounds(660, 0, 120, 60);
 
         jLabel11.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel11.setText("Costumer Details");
+        jLabel11.setText("Sold Product");
         jPanel3.add(jLabel11);
         jLabel11.setBounds(10, 10, 290, 30);
 
@@ -179,7 +179,7 @@ public class soldProduct extends javax.swing.JInternalFrame {
 
         jScrollPane1.setViewportView(table);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 150, 810, 290));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 150, 800, 270));
 
         delete1.setBackground(new java.awt.Color(255, 153, 153));
         delete1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));

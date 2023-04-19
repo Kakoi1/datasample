@@ -143,6 +143,7 @@ public class delete extends javax.swing.JFrame {
         jLabel10.setText("Price");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 50, 30));
 
+        id.setEditable(false);
         id.setBackground(new java.awt.Color(204, 204, 204));
         id.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         id.setHorizontalAlignment(javax.swing.JTextField.CENTER);

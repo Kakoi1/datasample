@@ -133,7 +133,7 @@ public class add extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel2.add(ads, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 70, 30));
+        jPanel2.add(ads, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 70, 30));
 
         update.setBackground(new java.awt.Color(255, 153, 153));
         update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -170,7 +170,7 @@ public class add extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel2.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 70, 30));
+        jPanel2.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 70, 30));
 
         discard.setBackground(new java.awt.Color(255, 153, 153));
         discard.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -226,7 +226,7 @@ public class add extends javax.swing.JInternalFrame {
 
         jScrollPane1.setViewportView(table);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 150, 810, 290));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 150, 780, 270));
 
         delete1.setBackground(new java.awt.Color(255, 153, 153));
         delete1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -249,7 +249,7 @@ public class add extends javax.swing.JInternalFrame {
         jLabel8.setText("Delete");
         delete1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(delete1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 70, 30));
+        jPanel2.add(delete1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 70, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 440));
 
