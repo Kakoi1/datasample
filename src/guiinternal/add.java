@@ -6,15 +6,19 @@
 package guiinternal;
 import config.dbconnect;
 import java.awt.Color;
+import java.awt.Font;
 import java.sql.ResultSet;
 
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import login.addfish;
@@ -37,10 +41,20 @@ public class add extends javax.swing.JInternalFrame {
          this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
          BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
          bi.setNorthPane(null);
-         
+         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         search.setOpaque(false);
         search.setBackground(new Color(0,0,0,0));
+  
+        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        table.getTableHeader().setOpaque(false);
+        table.getTableHeader().setBackground(headcolor);
+        table.getTableHeader().setForeground(Color.BLACK);
+        table.setRowHeight(25);
+        
+        TableColumnModel columnModel = table.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(20);
+
         
     }
     public void displaydata(){
@@ -81,7 +95,7 @@ public class add extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         update = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        discard = new javax.swing.JPanel();
+        searchb = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         search = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
@@ -172,28 +186,28 @@ public class add extends javax.swing.JInternalFrame {
 
         jPanel2.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 70, 30));
 
-        discard.setBackground(new java.awt.Color(255, 153, 153));
-        discard.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        discard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        discard.addMouseListener(new java.awt.event.MouseAdapter() {
+        searchb.setBackground(new java.awt.Color(255, 153, 153));
+        searchb.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        searchb.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        searchb.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                discardMouseClicked(evt);
+                searchbMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                discardMouseEntered(evt);
+                searchbMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                discardMouseExited(evt);
+                searchbMouseExited(evt);
             }
         });
-        discard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        searchb.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Search");
-        discard.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
+        searchb.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(discard, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 90, 70, 30));
+        jPanel2.add(searchb, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 90, 70, 30));
 
         search.setBackground(new java.awt.Color(0, 153, 204));
         search.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -267,20 +281,20 @@ public class add extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void discardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_discardMouseExited
-        discard.setBackground(headcolor);
-    }//GEN-LAST:event_discardMouseExited
+    private void searchbMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchbMouseExited
+        searchb.setBackground(headcolor);
+    }//GEN-LAST:event_searchbMouseExited
 
-    private void discardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_discardMouseEntered
-        discard.setBackground(bodycolor);
-    }//GEN-LAST:event_discardMouseEntered
+    private void searchbMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchbMouseEntered
+        searchb.setBackground(bodycolor);
+    }//GEN-LAST:event_searchbMouseEntered
 
-    private void discardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_discardMouseClicked
+    private void searchbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchbMouseClicked
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         TableRowSorter<DefaultTableModel> obj  = new TableRowSorter<>(model);
         table.setRowSorter(obj);
         obj.setRowFilter(RowFilter.regexFilter(search.getText()));       
-    }//GEN-LAST:event_discardMouseClicked
+    }//GEN-LAST:event_searchbMouseClicked
 
     private void updateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseExited
         update.setBackground(headcolor);
@@ -326,27 +340,40 @@ public class add extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_delete1MouseExited
 
     private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
-     int rowIndex = table.getSelectedRow();
-     if (rowIndex<0){
-         
-         JOptionPane.showMessageDialog(null, "Plese select an item");
-         
-     }
-     else{
-         TableModel model = table.getModel();
-         addfish up = new addfish();
-         up.id.setText(""+model.getValueAt(rowIndex, 0));
-         up.fish.setText(""+model.getValueAt(rowIndex, 1));
-         up.box.setSelectedItem(""+model.getValueAt(rowIndex, 2).toString());
-         up.quan.setText(""+model.getValueAt(rowIndex, 3));
-         up.pri.setText(""+model.getValueAt(rowIndex, 4));
-         up.action = "Edit";
-         up.save1.setText("Update");
-             JFrame mainJFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
-       mainJFrame.dispose();
-        up.setVisible(true);
-         
-     }
+        dbconnect dbc = new dbconnect();
+        int rowIndex = table.getSelectedRow();
+        if (rowIndex < 0) {
+
+            JOptionPane.showMessageDialog(null, "Plese select an item");
+
+        } else {
+            TableModel model = table.getModel();
+            addfish up = new addfish();
+            up.id.setText("" + model.getValueAt(rowIndex, 0));
+            String sid = model.getValueAt(rowIndex, 0).toString();
+
+            try {
+
+                ResultSet rs = dbc.getData("SELECT * FROM tbl_fish WHERE f_code = '" + sid + "' ");
+                if (rs.next()) {
+                    up.fish.setText(rs.getString("f_name"));
+                    up.box.setSelectedItem(rs.getString("f_status"));
+                    up.quan.setText(rs.getString("f_quantity"));
+                    up.pri.setText(rs.getString("f_price"));
+
+                    up.action = "Edit";
+                    up.save1.setText("Update");
+                    JFrame mainJFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    mainJFrame.dispose();
+                    up.setVisible(true);
+                } else {
+                    System.out.println("No Data Found");
+                }
+
+            } catch (SQLException w) {
+                System.out.println("" + w);
+            }
+        }
 
     }//GEN-LAST:event_updateMouseClicked
 
@@ -378,7 +405,6 @@ int rowIndex = table.getSelectedRow();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ads;
     private javax.swing.JPanel delete1;
-    private javax.swing.JPanel discard;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -390,6 +416,7 @@ int rowIndex = table.getSelectedRow();
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextField search;
+    private javax.swing.JPanel searchb;
     private javax.swing.JTable table;
     private javax.swing.JPanel update;
     // End of variables declaration//GEN-END:variables

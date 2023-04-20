@@ -7,14 +7,17 @@ package guiinternal;
 
 import config.dbconnect;
 import java.awt.Color;
+import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import login.addfish;
@@ -37,9 +40,18 @@ public class costumer extends javax.swing.JInternalFrame {
          BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
          bi.setNorthPane(null);
          
-        
+          table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         search.setOpaque(false);
         search.setBackground(new Color(0,0,0,0));
+        
+         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        table.getTableHeader().setOpaque(false);
+        table.getTableHeader().setBackground(headcolor);
+        table.getTableHeader().setForeground(Color.BLACK);
+        table.setRowHeight(25);
+        
+          TableColumnModel columnModel = table.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(20);
         
     }
   
@@ -264,6 +276,7 @@ public class costumer extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
+        dbconnect dbc = new dbconnect();
         int rowIndex = table.getSelectedRow();
         if (rowIndex<0){
 
@@ -271,19 +284,31 @@ public class costumer extends javax.swing.JInternalFrame {
 
         }
         else{
-            TableModel model = table.getModel();
+           TableModel model = table.getModel();
             update up = new update();
-            up.id.setText(""+model.getValueAt(rowIndex, 0));
-            up.name.setText(""+model.getValueAt(rowIndex, 1));        
-            up.cont.setText(""+model.getValueAt(rowIndex, 2));
-            up.add.setText(""+model.getValueAt(rowIndex, 3));
-            up.action = "Edit";
-            up.save1.setText("Update");
-            
+            up.id.setText("" + model.getValueAt(rowIndex, 0));
+            String sid = model.getValueAt(rowIndex, 0).toString();
 
-            JFrame mainJFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
-            mainJFrame.dispose();
-            up.setVisible(true);
+            try {
+
+                ResultSet rs = dbc.getData("SELECT * FROM tbl_user WHERE u_id = '" + sid + "' ");
+                if (rs.next()) {
+                    up.name.setText(rs.getString("u_name"));
+                  
+                    up.cont.setText(rs.getString("u_contact_no."));
+                    up.add.setText(rs.getString("u_address"));
+                    up.action = "Update";
+                    up.save1.setText("Update");
+                    JFrame mainJFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    mainJFrame.dispose();
+                    up.setVisible(true);
+                } else {
+                    System.out.println("No Data Found");
+                }
+
+            } catch (SQLException w) {
+                System.out.println("" + w);
+            }
 
         }
     }//GEN-LAST:event_updateMouseClicked

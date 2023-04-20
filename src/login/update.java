@@ -207,7 +207,7 @@ public class update extends javax.swing.JFrame {
                   + "SET `u_name` = '"+name.getText()+"', "
                         + "`u_contact_no.` ='"+cont.getText()+"',`u_address` ='"+add.getText()+"'  "
                                 + "WHERE `u_id` = '"+id.getText()+"'");
-  
+
     
              if(num == 0){
            

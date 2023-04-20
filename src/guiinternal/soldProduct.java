@@ -7,12 +7,15 @@ package guiinternal;
 
 import config.dbconnect;
 import java.awt.Color;
+import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import net.proteanit.sql.DbUtils;
@@ -32,6 +35,17 @@ public class soldProduct extends javax.swing.JInternalFrame {
           this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
          BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
          bi.setNorthPane(null);
+           table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+           
+            table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        table.getTableHeader().setOpaque(false);
+        table.getTableHeader().setBackground(headcolor);
+        table.getTableHeader().setForeground(Color.BLACK);
+        table.setRowHeight(25);
+        
+          TableColumnModel columnModel = table.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(20);
+           
     }
 
        Color bodycolor = new Color(153,204,255);
