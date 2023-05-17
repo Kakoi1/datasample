@@ -291,6 +291,7 @@ Color exit = new Color (153,204,255);
         dbconnect dbc = new dbconnect();
         String uname = username.getText();
         String pass = String.valueOf(password.getPassword());
+        m.name.setText(uname);
 
         try {
             String reHashed;

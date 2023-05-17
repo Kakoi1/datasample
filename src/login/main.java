@@ -33,14 +33,14 @@ public class main extends javax.swing.JFrame {
     public main() {
         initComponents();
        seticon();
-    
+
     }
     
     Color dashcolor = new Color(255,153,153);
     Color headcolor = new Color (0,153,204);
     Color bodycolor = new Color (153,204,255);
 
-
+ public String nm;
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -306,7 +306,9 @@ public class main extends javax.swing.JFrame {
     private void accountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountMouseClicked
 settings set = new settings();
 despane.add(set).setVisible(true);
- 
+nm=name.getText();
+        set.jname.setText(nm);
+
     }//GEN-LAST:event_accountMouseClicked
 
     private void maincloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maincloseMouseClicked

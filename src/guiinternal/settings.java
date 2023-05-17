@@ -6,30 +6,47 @@
 package guiinternal;
 
 import config.MyConnection;
-import login.login;
+import config.dbconnect;
 import java.awt.Color;
+import java.awt.Image;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import login.*;
-import login.login;
-import login.login;
-import login.main;
+
+
 
 /**
  *
  * @author College-PC
  */
 public class settings extends javax.swing.JInternalFrame {
+    
+    public byte[] imageBytes;
+    String path;
+    String filename=null;
+    String imgPath = null;
+   byte[] person_image = null; 
+    
 
     public settings() {
         initComponents();
-        
+        displayImage();
          this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
          BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
          bi.setNorthPane(null);
@@ -38,8 +55,39 @@ public class settings extends javax.swing.JInternalFrame {
     Color headcolor = new Color(0,153,204);
     Color bodycolor = new Color(153,204,255);
 
+    public  ImageIcon ResizeImage(String ImagePath, byte[] pic) {
+    ImageIcon MyImage = null;
+        if(ImagePath !=null){
+            MyImage = new ImageIcon(ImagePath);
+        }else{
+            MyImage = new ImageIcon(pic);
+        }
+    Image img = MyImage.getImage();
+    Image newImg = img.getScaledInstance(imagelbl.getWidth(), imagelbl.getHeight(), Image.SCALE_SMOOTH);
+    ImageIcon image = new ImageIcon(newImg);
+    return image;
+}
+    
 
+public void displayImage(){
 
+    
+    try{
+            dbconnect dbc = new dbconnect();
+            ResultSet rs = dbc.getData("SELECT * FROM `tbl_costumer` WHERE `c_username`= '"+jname.getText()+"'");
+            if(rs.next()){
+                imagelbl.setIcon(ResizeImage(null, rs.getBytes("c_image")));
+                c_name.setText(rs.getString("c_name"));
+                c_cont.setText(rs.getString("c_contact_no."));
+                c_add.setText(rs.getString("c_address"));
+                
+                
+            }
+            
+}catch(Exception e){
+
+}
+}
 
 
     /**
@@ -54,7 +102,7 @@ public class settings extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
+        imagelbl = new javax.swing.JLabel();
         jname = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -63,6 +111,11 @@ public class settings extends javax.swing.JInternalFrame {
         c_cont = new javax.swing.JTextField();
         c_add = new javax.swing.JTextField();
         c_name = new javax.swing.JTextField();
+        c_name1 = new javax.swing.JTextField();
+        update = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        update1 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         edit = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -82,8 +135,13 @@ public class settings extends javax.swing.JInternalFrame {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-administrator-male-100.png"))); // NOI18N
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 110));
+        imagelbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-administrator-male-100.png"))); // NOI18N
+        imagelbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagelblMouseClicked(evt);
+            }
+        });
+        jPanel3.add(imagelbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 110));
 
         jname.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         jname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -134,6 +192,91 @@ public class settings extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(c_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 150, 30));
+
+        c_name1.setEditable(false);
+        c_name1.setBackground(new java.awt.Color(153, 204, 255));
+        c_name1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        c_name1.setBorder(null);
+        c_name1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                c_name1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(c_name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 150, 30));
+
+        update.setBackground(new java.awt.Color(0, 153, 204));
+        update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        update.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        update.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                updateMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                updateMouseExited(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Edit");
+
+        javax.swing.GroupLayout updateLayout = new javax.swing.GroupLayout(update);
+        update.setLayout(updateLayout);
+        updateLayout.setHorizontalGroup(
+            updateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        updateLayout.setVerticalGroup(
+            updateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateLayout.createSequentialGroup()
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 70, 30));
+
+        update1.setBackground(new java.awt.Color(0, 153, 204));
+        update1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        update1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        update1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                update1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                update1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                update1MouseExited(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Save");
+
+        javax.swing.GroupLayout update1Layout = new javax.swing.GroupLayout(update1);
+        update1.setLayout(update1Layout);
+        update1Layout.setHorizontalGroup(
+            update1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, update1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        update1Layout.setVerticalGroup(
+            update1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, update1Layout.createSequentialGroup()
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(update1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 70, -1));
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 204));
         jPanel2.setLayout(null);
@@ -246,15 +389,92 @@ public class settings extends javax.swing.JInternalFrame {
         log.setVisible(true);
     }//GEN-LAST:event_outMouseClicked
 
+    private void imagelblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagelblMouseClicked
+      displayImage();
+    }//GEN-LAST:event_imagelblMouseClicked
+
+    private void c_name1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_name1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_c_name1ActionPerformed
+
+    private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg", "gif", "png");
+        chooser.addChoosableFileFilter(filter);
+        int result = chooser.showSaveDialog(null);
+        
+        if (result == JFileChooser.APPROVE_OPTION){
+            File selectedFile = chooser.getSelectedFile();
+            path = selectedFile.getAbsolutePath();
+            imagelbl.setIcon(ResizeImage(path,null));
+            imgPath = path;
+            File f = chooser.getSelectedFile();
+            filename = selectedFile.getAbsolutePath();
+        }else{
+        JOptionPane.showMessageDialog(null, "Canceled !");
+        }
+        
+      
+        try {
+                File image = new File(filename);
+                FileInputStream fis = new FileInputStream(image);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                
+                for (int readNum; (readNum=fis.read(buf)) !=-1;){
+                 bos.write(buf,0,readNum);
+                }
+                person_image=bos.toByteArray();
+                
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+    }//GEN-LAST:event_updateMouseClicked
+
+    private void updateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseEntered
+        update.setBackground(bodycolor);
+    }//GEN-LAST:event_updateMouseEntered
+
+    private void updateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseExited
+        update.setBackground(headcolor);
+    }//GEN-LAST:event_updateMouseExited
+
+    private void update1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update1MouseClicked
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_fish", "root", "");
+             String sql = "UPDATE `tbl_costumer` SET `c_image`=?,`c_imgname`=? WHERE `c_username`='"+jname.getText()+"'";
+               PreparedStatement pst = con.prepareStatement(sql);
+                pst.setBytes(1,person_image);
+                pst.setString(2, filename);
+                pst.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
+    }//GEN-LAST:event_update1MouseClicked
+
+    private void update1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update1MouseEntered
+      update1.setBackground(bodycolor);
+    }//GEN-LAST:event_update1MouseEntered
+
+    private void update1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update1MouseExited
+       update1.setBackground(headcolor);
+    }//GEN-LAST:event_update1MouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField c_add;
     public javax.swing.JTextField c_cont;
     public javax.swing.JTextField c_name;
+    public javax.swing.JTextField c_name1;
     private javax.swing.JPanel edit;
+    private javax.swing.JLabel imagelbl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -268,5 +488,7 @@ public class settings extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     public javax.swing.JLabel jname;
     private javax.swing.JPanel out;
+    private javax.swing.JPanel update;
+    private javax.swing.JPanel update1;
     // End of variables declaration//GEN-END:variables
 }

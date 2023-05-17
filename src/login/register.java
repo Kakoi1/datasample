@@ -4,36 +4,48 @@
  * and open the template in the editor.
  */
 package login;
-
+import java.awt.Image;
 import config.MyConnection;
 import config.PasswordHasher;
 import config.dbconnect;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author College-PC
  */
 public class register extends javax.swing.JFrame {
-
+public byte[] imageBytes;
+    String path;
+    String filename=null;
+    String imgPath = null;
+   byte[] person_image = null; 
     /**
      * Creates new form register
      */
     public register() {
         initComponents();
-        setSize(360, 460);
+      setSize(641, 468);
         nm.setBackground(new Color(255,255,255,50));
         us.setBackground(new Color(255,255,255,50));
         pass.setBackground(new Color(255,255,255,50));
@@ -48,31 +60,6 @@ Color exit = new Color (0,153,204);
 
  Border empty = BorderFactory.createEmptyBorder();
  
-//  public boolean checkUsername(String username)
-//    {
-//        PreparedStatement ps;
-//        ResultSet rs;
-//        boolean checkUser = false;
-//        String query = "SELECT * FROM `tbl_costumer` WHERE `c_username`=?";
-//        
-//        try {
-//            ps = MyConnection.getConnection().prepareStatement(query);
-//            ps.setString(1, username);
-//            
-//            rs = ps.executeQuery();
-//            
-//            if(rs.next())
-//            {
-//                checkUser = true;
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//         return checkUser;
-//    }
-
- 
- 
     void buttonBorderAnimation(JPanel panel){
         
         panel.setBackground(hover);
@@ -84,6 +71,20 @@ Color exit = new Color (0,153,204);
         panel.setBackground(exit);
         panel.setBorder(empty);
     }
+     
+     public  ImageIcon ResizeImage(String ImagePath, byte[] pic) {
+    ImageIcon MyImage = null;
+        if(ImagePath !=null){
+            MyImage = new ImageIcon(ImagePath);
+        }else{
+            MyImage = new ImageIcon(pic);
+        }
+    Image img = MyImage.getImage();
+    Image newImg = img.getScaledInstance(labelimage.getWidth(), labelimage.getHeight(), Image.SCALE_SMOOTH);
+    ImageIcon image = new ImageIcon(newImg);
+    return image;
+}
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,12 +114,15 @@ Color exit = new Color (0,153,204);
         jLabel8 = new javax.swing.JLabel();
         pass = new javax.swing.JPasswordField();
         repass = new javax.swing.JPasswordField();
+        labelimage = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        login1 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(627, 468));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(360, 460));
-        setResizable(false);
+        setPreferredSize(new java.awt.Dimension(627, 468));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -133,7 +137,7 @@ Color exit = new Color (0,153,204);
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 400, 60);
+        jPanel2.setBounds(0, 0, 640, 60);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -201,7 +205,6 @@ Color exit = new Color (0,153,204);
         jScrollPane1.setBounds(140, 310, 200, 80);
 
         login.setBackground(new java.awt.Color(0, 153, 204));
-        login.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         login.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -225,19 +228,18 @@ Color exit = new Color (0,153,204);
             loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                 .addContainerGap())
         );
         loginLayout.setVerticalGroup(
             loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         jPanel1.add(login);
-        login.setBounds(240, 410, 90, 40);
+        login.setBounds(390, 410, 90, 40);
 
         cancel.setBackground(new java.awt.Color(0, 153, 204));
-        cancel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         cancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -261,15 +263,15 @@ Color exit = new Color (0,153,204);
             .addGroup(cancelLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel8)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         cancelLayout.setVerticalGroup(
             cancelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         jPanel1.add(cancel);
-        cancel.setBounds(60, 410, 90, 40);
+        cancel.setBounds(170, 410, 90, 40);
 
         pass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jPanel1.add(pass);
@@ -284,16 +286,55 @@ Color exit = new Color (0,153,204);
         jPanel1.add(repass);
         repass.setBounds(140, 230, 200, 30);
 
+        labelimage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(labelimage);
+        labelimage.setBounds(400, 120, 200, 130);
+
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/kisspng-seed-flower-dark-helmet-vimeo-medical-cannabis-ocean-logo-5b1723af957123.4894901515282431196121.png"))); // NOI18N
         jLabel10.setText("jLabel10");
         jPanel1.add(jLabel10);
         jLabel10.setBounds(0, 54, 510, 410);
 
+        login1.setBackground(new java.awt.Color(0, 153, 204));
+        login1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        login1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                login1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                login1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                login1MouseExited(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Browse");
+
+        javax.swing.GroupLayout login1Layout = new javax.swing.GroupLayout(login1);
+        login1.setLayout(login1Layout);
+        login1Layout.setHorizontalGroup(
+            login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, login1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        login1Layout.setVerticalGroup(
+            login1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(login1);
+        login1.setBounds(450, 280, 90, 40);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,15 +363,33 @@ Color exit = new Color (0,153,204);
 
             String password;
             try {
+                String pending = "pending";
                 password = PasswordHasher.hashPassword(pass.getText());
-                dbc.insertData("INSERT INTO `tbl_costumer`(`c_name`, `c_username`, `c_password`, `c_contact_no.`, `c_address`) "
-                        + "VALUES ('" + nm.getText() + "', '" + us.getText() + "','" + password + "','" + no.getText() + "','" + ad.getText() + "')");
+//                dbc.insertData("INSERT INTO `tbl_costumer`(`c_name`, `c_username`, `c_password`, `c_contact_no.`, `c_address`, `c_status`) "
+//                        + "VALUES ('" + nm.getText() + "', '" + us.getText() + "','" + password + "','" + no.getText() + "','" + ad.getText() +"','" + pending + "')");
+                
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_fish", "root", "");
+            String sql = "INSERT INTO `tbl_costumer`( `c_name`, `c_username`, `c_password`, `c_contact_no.`, `c_address`, `c_status`, `c_image`, `c_imgname`) VALUES (?,?,?,?,?,?,?,?)";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, nm.getText());
+            pst.setString(2, us.getText());
+            pst.setString(3, password);
+            pst.setString(4, no.getText());
+            pst.setString(5, ad.getText());
+            pst.setString(6, pending);
+            pst.setBytes(7,person_image);
+            pst.setString(8, filename);
+            
+            pst.execute();
+                                      
                 JOptionPane.showMessageDialog(null, "Successfull added");
                 login li = new login();
                 li.setVisible(true);
                 this.dispose();
             } catch (NoSuchAlgorithmException ex) {
                 System.out.println("" + ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -376,6 +435,50 @@ Color exit = new Color (0,153,204);
         // TODO add your handling code here:
     }//GEN-LAST:event_repassActionPerformed
 
+    private void login1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login1MouseClicked
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg", "gif", "png");
+        chooser.addChoosableFileFilter(filter);
+        int result = chooser.showSaveDialog(null);
+        
+        if (result == JFileChooser.APPROVE_OPTION){
+            File selectedFile = chooser.getSelectedFile();
+            path = selectedFile.getAbsolutePath();
+            labelimage.setIcon(ResizeImage(path,null));
+            imgPath = path;
+            File f = chooser.getSelectedFile();
+            filename = selectedFile.getAbsolutePath();
+        }else{
+        JOptionPane.showMessageDialog(null, "Canceled !");
+        }
+        
+      
+        try {
+                File image = new File(filename);
+                FileInputStream fis = new FileInputStream(image);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                
+                for (int readNum; (readNum=fis.read(buf)) !=-1;){
+                 bos.write(buf,0,readNum);
+                }
+                person_image=bos.toByteArray();
+                
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+    }//GEN-LAST:event_login1MouseClicked
+
+    private void login1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login1MouseEntered
+         buttonBorderAnimation(login1);
+    }//GEN-LAST:event_login1MouseEntered
+
+    private void login1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login1MouseExited
+        buttonDefaultColor(login1);
+    }//GEN-LAST:event_login1MouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -417,6 +520,7 @@ Color exit = new Color (0,153,204);
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -427,7 +531,9 @@ Color exit = new Color (0,153,204);
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelimage;
     private javax.swing.JPanel login;
+    private javax.swing.JPanel login1;
     private javax.swing.JTextField nm;
     private javax.swing.JTextField no;
     private javax.swing.JPasswordField pass;
