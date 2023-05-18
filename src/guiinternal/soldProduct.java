@@ -182,7 +182,7 @@ public class soldProduct extends javax.swing.JInternalFrame {
         jPanel4.setBounds(660, 0, 120, 60);
 
         jLabel11.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel11.setText("Sold Product");
+        jLabel11.setText("Transactions");
         jPanel3.add(jLabel11);
         jLabel11.setBounds(10, 10, 290, 30);
 

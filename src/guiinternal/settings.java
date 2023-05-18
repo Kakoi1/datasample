@@ -125,6 +125,12 @@ public void displayImage(){
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
+
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -449,10 +455,15 @@ public void displayImage(){
                 pst.setBytes(1,person_image);
                 pst.setString(2, filename);
                 pst.execute();
+                int update = pst.executeUpdate();
+                if(update>0){
+                    JOptionPane.showMessageDialog(null, "Succesfully updated");
+                    
+                }
         } catch (SQLException ex) {
             Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, ex);
-        }
-           
+             JOptionPane.showMessageDialog(null, "Select an Image First");
+        }    
     }//GEN-LAST:event_update1MouseClicked
 
     private void update1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update1MouseEntered
@@ -462,6 +473,10 @@ public void displayImage(){
     private void update1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update1MouseExited
        update1.setBackground(headcolor);
     }//GEN-LAST:event_update1MouseExited
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+    displayImage();
+    }//GEN-LAST:event_formComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -312,8 +312,10 @@ Color exit = new Color (153,204,255);
                 } else {
                     JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
                 }
-
-      
+            }else{
+                 JOptionPane.showMessageDialog(null, "INVALID USERNAME AND PASSWORD... TRY AGAIN");
+             
+        
 }
 
 }catch(NoSuchAlgorithmException | SQLException ex){
