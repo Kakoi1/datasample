@@ -8,16 +8,22 @@ package guiinternal;
 import config.dbconnect;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.print.PrinterException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import login.printPage;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -56,10 +62,11 @@ public class soldProduct extends javax.swing.JInternalFrame {
         try{
      dbconnect db = new dbconnect();
      
-     ResultSet rs = db.getData("SELECT tbl_fish.f_code,"
+     ResultSet rs = db.getData("SELECT tbl_soldproduct.sp_id, "
+             + "tbl_fish.f_code,"
              + " tbl_fish.f_name,"
-             + " tbl_fish.f_price,"
-             + " tbl_user.u_id, tbl_user.u_name, tbl_soldproduct.sp_status FROM tbl_soldproduct "
+             + " tbl_fish.f_price,"            
+             + " tbl_user.u_id, tbl_user.u_name, tbl_user.u_address, tbl_soldproduct.sp_status FROM tbl_soldproduct "
              + "LEFT JOIN tbl_fish ON tbl_soldproduct.f_code = tbl_fish.f_code "
              + "LEFT JOIN tbl_user ON tbl_soldproduct.u_id = tbl_user.u_id");
      
@@ -87,7 +94,6 @@ public class soldProduct extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         discard = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        search = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -95,6 +101,11 @@ public class soldProduct extends javax.swing.JInternalFrame {
         table = new javax.swing.JTable();
         delete1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        search = new javax.swing.JTextField();
+        printer = new javax.swing.JPanel();
+        Print = new javax.swing.JLabel();
+        printer1 = new javax.swing.JPanel();
+        Print1 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -162,20 +173,6 @@ public class soldProduct extends javax.swing.JInternalFrame {
 
         jPanel2.add(discard, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 90, 70, 30));
 
-        search.setBackground(new java.awt.Color(0, 153, 204));
-        search.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        search.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        search.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                searchMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                searchMouseExited(evt);
-            }
-        });
-        jPanel2.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 160, 30));
-
         jPanel3.setBackground(new java.awt.Color(153, 204, 255));
         jPanel3.setLayout(null);
 
@@ -193,7 +190,7 @@ public class soldProduct extends javax.swing.JInternalFrame {
 
         jScrollPane1.setViewportView(table);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 150, 800, 270));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 150, 790, 280));
 
         delete1.setBackground(new java.awt.Color(255, 153, 153));
         delete1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -217,6 +214,66 @@ public class soldProduct extends javax.swing.JInternalFrame {
         delete1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
         jPanel2.add(delete1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 70, 30));
+
+        search.setBackground(new java.awt.Color(0, 153, 204));
+        search.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        search.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                searchMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                searchMouseExited(evt);
+            }
+        });
+        jPanel2.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 160, 30));
+
+        printer.setBackground(new java.awt.Color(255, 153, 153));
+        printer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        printer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        printer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                printerMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                printerMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                printerMouseExited(evt);
+            }
+        });
+        printer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Print.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        Print.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Print.setText("Print");
+        printer.add(Print, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
+
+        jPanel2.add(printer, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 70, 30));
+
+        printer1.setBackground(new java.awt.Color(255, 153, 153));
+        printer1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        printer1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        printer1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                printer1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                printer1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                printer1MouseExited(evt);
+            }
+        });
+        printer1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Print1.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        Print1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Print1.setText("Print Table");
+        printer1.add(Print1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 30));
+
+        jPanel2.add(printer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 80, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 440));
 
@@ -281,14 +338,6 @@ public class soldProduct extends javax.swing.JInternalFrame {
         discard.setBackground(headcolor);
     }//GEN-LAST:event_discardMouseExited
 
-    private void searchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseEntered
-
-    }//GEN-LAST:event_searchMouseEntered
-
-    private void searchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseExited
-
-    }//GEN-LAST:event_searchMouseExited
-
     private void delete1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete1MouseClicked
         int rowIndex = table.getSelectedRow();
 
@@ -318,8 +367,70 @@ public class soldProduct extends javax.swing.JInternalFrame {
         delete1.setBackground(headcolor);
     }//GEN-LAST:event_delete1MouseExited
 
+    private void searchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchMouseEntered
+
+    private void searchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchMouseExited
+
+    private void printerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printerMouseClicked
+            int rowIndex = table.getSelectedRow();
+        if (rowIndex<0){
+
+            JOptionPane.showMessageDialog(null, "Plese select an item");
+
+        }
+        else{
+            TableModel model = table.getModel();
+            printPage up = new printPage();
+            up.t_id.setText(""+model.getValueAt(rowIndex, 0));
+            up.fish.setText(""+model.getValueAt(rowIndex, 1));
+            up.f_name.setText(""+model.getValueAt(rowIndex, 2));
+            up.f_p.setText(""+model.getValueAt(rowIndex, 3));
+            up.u_id.setText(""+model.getValueAt(rowIndex, 4));
+            up.u_n.setText(""+model.getValueAt(rowIndex, 5));
+             up.u_ad.setText(""+model.getValueAt(rowIndex, 6));
+              up.t_stat.setText(""+model.getValueAt(rowIndex, 7));
+
+            JFrame mainJFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
+            mainJFrame.dispose();
+            up.setVisible(true);
+
+        }
+    }//GEN-LAST:event_printerMouseClicked
+
+    private void printerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printerMouseEntered
+        printer.setBackground(bodycolor);
+    }//GEN-LAST:event_printerMouseEntered
+
+    private void printerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printerMouseExited
+      printer.setBackground(headcolor);
+    }//GEN-LAST:event_printerMouseExited
+
+    private void printer1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printer1MouseClicked
+        MessageFormat header = new MessageFormat("db_fish");
+        MessageFormat footer = new MessageFormat("db_fish");
+        try{
+            table.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+        }catch(PrinterException e){
+            JOptionPane.showMessageDialog(null, "Cannot be print!"+e.getMessage());
+        }
+    }//GEN-LAST:event_printer1MouseClicked
+
+    private void printer1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printer1MouseEntered
+        printer1.setBackground(bodycolor);
+    }//GEN-LAST:event_printer1MouseEntered
+
+    private void printer1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printer1MouseExited
+     printer1.setBackground(headcolor);
+    }//GEN-LAST:event_printer1MouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Print;
+    private javax.swing.JLabel Print1;
     private javax.swing.JPanel delete1;
     private javax.swing.JPanel discard;
     private javax.swing.JLabel jLabel11;
@@ -331,6 +442,8 @@ public class soldProduct extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel printer;
+    private javax.swing.JPanel printer1;
     public javax.swing.JTextField search;
     private javax.swing.JTable table;
     private javax.swing.JPanel update;

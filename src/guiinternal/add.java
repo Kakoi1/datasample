@@ -22,7 +22,7 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import login.addfish;
-import login.delete;
+import login.printPage;
 import login.main;
 import login.update;
 import net.proteanit.sql.DbUtils;
