@@ -11,9 +11,15 @@ import config.dbconnect;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,9 +28,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -35,11 +43,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author College-PC
  */
 public class register extends javax.swing.JFrame {
-public byte[] imageBytes;
-    String path;
-    String filename=null;
-    String imgPath = null;
-   byte[] person_image = null; 
+  public String destination = "";
+    File selectedFile;
+//    public String oldpath;
+    String path; 
     /**
      * Creates new form register
      */
@@ -72,15 +79,54 @@ Color exit = new Color (0,153,204);
         panel.setBorder(empty);
     }
      
-     public  ImageIcon ResizeImage(String ImagePath, byte[] pic) {
+     public int FileExistenceChecker(String path){
+        File file = new File(path);
+        String fileName = file.getName();
+        
+        Path filePath = Paths.get("src/forImages", fileName);
+        boolean fileExists = Files.exists(filePath);
+        
+        if (fileExists) {
+            return 1;
+        } else {
+            return 0;
+        }
+    
+    }
+     
+      public static int getHeightFromWidth(String imagePath, int desiredWidth) {
+        try {
+            // Read the image file
+            File imageFile = new File(imagePath);
+            BufferedImage image = ImageIO.read(imageFile);
+            
+            // Get the original width and height of the image
+            int originalWidth = image.getWidth();
+            int originalHeight = image.getHeight();
+            
+            // Calculate the new height based on the desired width and the aspect ratio
+            int newHeight = (int) ((double) desiredWidth / originalWidth * originalHeight);
+            
+            return newHeight;
+        } catch (IOException ex) {
+            System.out.println("No image found!");
+        }
+        
+        return -1;
+    }
+     
+    public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
     ImageIcon MyImage = null;
         if(ImagePath !=null){
             MyImage = new ImageIcon(ImagePath);
         }else{
             MyImage = new ImageIcon(pic);
         }
+        
+    int newHeight = getHeightFromWidth(ImagePath, label.getWidth());
+
     Image img = MyImage.getImage();
-    Image newImg = img.getScaledInstance(labelimage.getWidth(), labelimage.getHeight(), Image.SCALE_SMOOTH);
+    Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
     ImageIcon image = new ImageIcon(newImg);
     return image;
 }
@@ -362,6 +408,7 @@ Color exit = new Color (0,153,204);
         } else {
 
             String password;
+              int result=0;
             try {
                 String pending = "pending";
                 password = PasswordHasher.hashPassword(pass.getText());
@@ -369,7 +416,7 @@ Color exit = new Color (0,153,204);
 //                        + "VALUES ('" + nm.getText() + "', '" + us.getText() + "','" + password + "','" + no.getText() + "','" + ad.getText() +"','" + pending + "')");
                 
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_fish", "root", "");
-            String sql = "INSERT INTO `tbl_costumer`( `c_name`, `c_username`, `c_password`, `c_contact_no.`, `c_address`, `c_status`, `c_image`, `c_imgname`) VALUES (?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO `tbl_costumer`( `c_name`, `c_username`, `c_password`, `c_contact_no.`, `c_address`, `c_status`, `c_image`) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, nm.getText());
             pst.setString(2, us.getText());
@@ -377,18 +424,21 @@ Color exit = new Color (0,153,204);
             pst.setString(4, no.getText());
             pst.setString(5, ad.getText());
             pst.setString(6, pending);
-            pst.setBytes(7,person_image);
-            pst.setString(8, filename);
-            
-            pst.execute();
-                                      
+            pst.setString(7,destination);           
+            pst.execute();                
+              result = 1;
+            Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);   
+           if(result == 1){ 
                 JOptionPane.showMessageDialog(null, "Successfull added");
                 login li = new login();
                 li.setVisible(true);
                 this.dispose();
+           }
             } catch (NoSuchAlgorithmException ex) {
                 System.out.println("" + ex);
             } catch (SQLException ex) {
+                Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -436,39 +486,32 @@ Color exit = new Color (0,153,204);
     }//GEN-LAST:event_repassActionPerformed
 
     private void login1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login1MouseClicked
-        JFileChooser chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg", "gif", "png");
-        chooser.addChoosableFileFilter(filter);
-        int result = chooser.showSaveDialog(null);
-        
-        if (result == JFileChooser.APPROVE_OPTION){
-            File selectedFile = chooser.getSelectedFile();
-            path = selectedFile.getAbsolutePath();
-            labelimage.setIcon(ResizeImage(path,null));
-            imgPath = path;
-            File f = chooser.getSelectedFile();
-            filename = selectedFile.getAbsolutePath();
-        }else{
-        JOptionPane.showMessageDialog(null, "Canceled !");
-        }
-        
-      
-        try {
-                File image = new File(filename);
-                FileInputStream fis = new FileInputStream(image);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                byte[] buf = new byte[1024];
+       JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
                 
-                for (int readNum; (readNum=fis.read(buf)) !=-1;){
-                 bos.write(buf,0,readNum);
+                
+                
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        selectedFile = fileChooser.getSelectedFile();
+                        destination = "src/forImages/" + selectedFile.getName();
+                        path  = selectedFile.getAbsolutePath();
+                        
+                        
+                        if(FileExistenceChecker(path) == 1){
+                          JOptionPane.showMessageDialog(null, "File Already Exist, Rename or Choose another!");
+                            destination = "";
+                            path="";
+                        }else{
+                            labelimage.setIcon(ResizeImage(path, null,labelimage ));
+                            System.out.println(""+destination);
+//                            browse.setVisible(true);
+//                            browse.setText("REMOVE");
+                        }
+                    } catch (Exception ex) {
+                        System.out.println("File Error!");
+                    }
                 }
-                person_image=bos.toByteArray();
-                
-        }catch(Exception e){
-            System.out.println(e);
-        }
-
     }//GEN-LAST:event_login1MouseClicked
 
     private void login1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login1MouseEntered

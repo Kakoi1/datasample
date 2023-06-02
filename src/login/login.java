@@ -7,6 +7,7 @@ import config.dbconnect;
 import guiinternal.settings;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
@@ -87,8 +88,9 @@ Color exit = new Color (153,204,255);
         jLabel3 = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
         create = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        create1 = new javax.swing.JLabel();
         show = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         panels = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -133,7 +135,7 @@ Color exit = new Color (153,204,255);
                 usernameActionPerformed(evt);
             }
         });
-        panel2.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 220, 50));
+        panel2.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 220, 50));
 
         login.setBackground(new java.awt.Color(153, 204, 255));
         login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -167,7 +169,7 @@ Color exit = new Color (153,204,255);
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        panel2.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, -1, -1));
+        panel2.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, -1, -1));
 
         cancel.setBackground(new java.awt.Color(153, 204, 255));
         cancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -201,7 +203,7 @@ Color exit = new Color (153,204,255);
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        panel2.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 80, -1));
+        panel2.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 80, -1));
 
         password.setBackground(new java.awt.Color(255, 153, 153));
         password.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -211,7 +213,7 @@ Color exit = new Color (153,204,255);
                 passwordActionPerformed(evt);
             }
         });
-        panel2.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 220, 50));
+        panel2.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 220, 50));
 
         create.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         create.setText("Create Account");
@@ -227,11 +229,23 @@ Color exit = new Color (153,204,255);
                 createMouseExited(evt);
             }
         });
-        panel2.add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 360, -1, -1));
+        panel2.add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, -1, -1));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/kisspng-seed-flower-dark-helmet-vimeo-medical-cannabis-ocean-logo-5b1723af957123.4894901515282431196121.png"))); // NOI18N
-        jLabel4.setText("jLabel4");
-        panel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, -20, -1, -1));
+        create1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        create1.setText("Forgot Account");
+        create1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        create1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                create1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                create1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                create1MouseExited(evt);
+            }
+        });
+        panel2.add(create1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, -1, -1));
 
         show.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login/icons8-show-password-32.png"))); // NOI18N
         show.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -246,10 +260,14 @@ Color exit = new Color (153,204,255);
                 showMouseExited(evt);
             }
         });
-        panel2.add(show, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, -1, -1));
+        panel2.add(show, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, -1, -1));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/kisspng-seed-flower-dark-helmet-vimeo-medical-cannabis-ocean-logo-5b1723af957123.4894901515282431196121.png"))); // NOI18N
+        jLabel4.setText("jLabel4");
+        panel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, -20, -1, -1));
 
         panels.setLayout(null);
-        panel2.add(panels, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 280, 270));
+        panel2.add(panels, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 280, 300));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -306,9 +324,11 @@ Color exit = new Color (153,204,255);
                     JOptionPane.showMessageDialog(null, "login Successfully!");
                     this.dispose();
                     m.setVisible(true);
-                    set.jname.setText(rs.getString("c_name"));
-                    set.c_cont.setText(rs.getString("c_contact_no."));
-                    set.c_add.setText(rs.getString("c_address"));
+//                    set.jname.setText(rs.getString("c_name"));
+//                    set.c_cont.setText(rs.getString("c_contact_no."));
+//                    set.c_add.setText(rs.getString("c_address"));
+   
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
                 }
@@ -382,6 +402,20 @@ Color exit = new Color (153,204,255);
        password.setEchoChar('*');
     }//GEN-LAST:event_showMouseExited
 
+    private void create1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_create1MouseClicked
+     this.dispose();
+     changeacc ch = new changeacc();
+     ch.setVisible(true);
+    }//GEN-LAST:event_create1MouseClicked
+
+    private void create1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_create1MouseEntered
+    create1.setForeground(Color.BLUE);
+    }//GEN-LAST:event_create1MouseEntered
+
+    private void create1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_create1MouseExited
+     create1.setForeground(Color.BLACK);
+    }//GEN-LAST:event_create1MouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -421,6 +455,7 @@ Color exit = new Color (153,204,255);
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel cancel;
     private javax.swing.JLabel create;
+    private javax.swing.JLabel create1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

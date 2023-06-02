@@ -18,17 +18,25 @@ import java.sql.SQLException;
  * @author SCC COMPLAB
  */
 public class dbconnect {
-   private Connection connection;
-    
-    public dbconnect(){
-        try{
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_fish", "root", "");
-            }catch(SQLException e){
-                System.err.println("Cannot connect to database: " + e.getMessage());
+      public Connection connection;
+            
+       // constructor to connect to our database
+        public dbconnect(){
+            try{
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_fish", "root", "");
+            }catch(SQLException ex){
+                    System.out.println("Can't connect to database: "+ex.getMessage());
             }
+        }
         
-        
-    }
+        public Connection connect_db(){
+              try{
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_fish", "root", "");
+            }catch(SQLException ex){
+                    System.out.println("Can't connect to database: "+ex.getMessage());
+            }
+              return connection;
+        }
     
     public ResultSet getData(String sql) throws SQLException {
         java.sql.Statement statement = connection.createStatement();

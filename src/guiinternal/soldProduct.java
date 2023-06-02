@@ -58,6 +58,8 @@ public class soldProduct extends javax.swing.JInternalFrame {
     Color headcolor = new Color(255,153,153);
     Color hover = new Color(0,153,204);
     
+    public String report;
+    
       public void displaydata(){
         try{
      dbconnect db = new dbconnect();
@@ -397,6 +399,7 @@ public class soldProduct extends javax.swing.JInternalFrame {
             JFrame mainJFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
             mainJFrame.dispose();
             up.setVisible(true);
+            up.nnm = report;
 
         }
     }//GEN-LAST:event_printerMouseClicked

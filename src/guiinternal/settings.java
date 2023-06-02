@@ -9,9 +9,15 @@ import config.MyConnection;
 import config.dbconnect;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,9 +25,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -37,11 +46,10 @@ import login.*;
  */
 public class settings extends javax.swing.JInternalFrame {
     
-    public byte[] imageBytes;
+  public String destination = "";
+    File selectedFile;
+//    public String oldpath;
     String path;
-    String filename=null;
-    String imgPath = null;
-   byte[] person_image = null; 
     
 
     public settings() {
@@ -55,18 +63,59 @@ public class settings extends javax.swing.JInternalFrame {
     Color headcolor = new Color(0,153,204);
     Color bodycolor = new Color(153,204,255);
 
-    public  ImageIcon ResizeImage(String ImagePath, byte[] pic) {
+    
+        public static int getHeightFromWidth(String imagePath, int desiredWidth) {
+        try {
+            // Read the image file
+            File imageFile = new File(imagePath);
+            BufferedImage image = ImageIO.read(imageFile);
+            
+            // Get the original width and height of the image
+            int originalWidth = image.getWidth();
+            int originalHeight = image.getHeight();
+            
+            // Calculate the new height based on the desired width and the aspect ratio
+            int newHeight = (int) ((double) desiredWidth / originalWidth * originalHeight);
+            
+            return newHeight;
+        } catch (IOException ex) {
+            System.out.println("No image found!");
+        }
+        
+        return -1;
+    }
+    
+    
+public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
     ImageIcon MyImage = null;
         if(ImagePath !=null){
             MyImage = new ImageIcon(ImagePath);
         }else{
             MyImage = new ImageIcon(pic);
         }
+        
+    int newHeight = getHeightFromWidth(ImagePath, label.getWidth());
+
     Image img = MyImage.getImage();
-    Image newImg = img.getScaledInstance(imagelbl.getWidth(), imagelbl.getHeight(), Image.SCALE_SMOOTH);
+    Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
     ImageIcon image = new ImageIcon(newImg);
     return image;
 }
+
+public int FileExistenceChecker(String path){
+        File file = new File(path);
+        String fileName = file.getName();
+        
+        Path filePath = Paths.get("src/forImages", fileName);
+        boolean fileExists = Files.exists(filePath);
+        
+        if (fileExists) {
+            return 1;
+        } else {
+            return 0;
+        }
+    
+    }
     
 
 public void displayImage(){
@@ -76,7 +125,7 @@ public void displayImage(){
             dbconnect dbc = new dbconnect();
             ResultSet rs = dbc.getData("SELECT * FROM `tbl_costumer` WHERE `c_username`= '"+jname.getText()+"'");
             if(rs.next()){
-                imagelbl.setIcon(ResizeImage(null, rs.getBytes("c_image")));
+               imagelbl.setIcon(ResizeImage(rs.getString("c_image"), null, imagelbl));
                 c_name.setText(rs.getString("c_name"));
                 c_cont.setText(rs.getString("c_contact_no."));
                 c_add.setText(rs.getString("c_address"));
@@ -99,6 +148,7 @@ public void displayImage(){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -112,10 +162,6 @@ public void displayImage(){
         c_add = new javax.swing.JTextField();
         c_name = new javax.swing.JTextField();
         c_name1 = new javax.swing.JTextField();
-        update = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        update1 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         edit = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -124,6 +170,8 @@ public void displayImage(){
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+
+        jLabel3.setText("jLabel3");
 
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -141,19 +189,20 @@ public void displayImage(){
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        imagelbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imagelbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-administrator-male-100.png"))); // NOI18N
         imagelbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagelblMouseClicked(evt);
             }
         });
-        jPanel3.add(imagelbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 110));
+        jPanel3.add(imagelbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 150, 110));
 
         jname.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         jname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel3.add(jname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 120, 20));
+        jPanel3.add(jname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 150, 20));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, -1, 160));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 0, 150, 160));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jLabel1.setText("Account Settings");
@@ -209,80 +258,6 @@ public void displayImage(){
             }
         });
         jPanel1.add(c_name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 150, 30));
-
-        update.setBackground(new java.awt.Color(0, 153, 204));
-        update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        update.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        update.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                updateMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                updateMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                updateMouseExited(evt);
-            }
-        });
-
-        jLabel11.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Edit");
-
-        javax.swing.GroupLayout updateLayout = new javax.swing.GroupLayout(update);
-        update.setLayout(updateLayout);
-        updateLayout.setHorizontalGroup(
-            updateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        updateLayout.setVerticalGroup(
-            updateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateLayout.createSequentialGroup()
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 70, 30));
-
-        update1.setBackground(new java.awt.Color(0, 153, 204));
-        update1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        update1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        update1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                update1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                update1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                update1MouseExited(evt);
-            }
-        });
-
-        jLabel12.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Save");
-
-        javax.swing.GroupLayout update1Layout = new javax.swing.GroupLayout(update1);
-        update1.setLayout(update1Layout);
-        update1Layout.setHorizontalGroup(
-            update1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, update1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        update1Layout.setVerticalGroup(
-            update1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, update1Layout.createSequentialGroup()
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(update1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 70, -1));
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 204));
         jPanel2.setLayout(null);
@@ -361,7 +336,37 @@ public void displayImage(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
+      try {
+          
+          main m = new main();
+          dbconnect dbc = new dbconnect();
+          Updateuser up = new Updateuser();
+          up.nm = jname.getText();
+          ResultSet rs = dbc.getData("SELECT * FROM `tbl_costumer` WHERE `c_username`= '"+jname.getText()+"'");
+         if(rs.next()) {
+          up.c_name.setText(rs.getString("c_name"));
+          up.c_cont.setText(rs.getString("c_contact_no."));
+          up.c_add1.setText(rs.getString("c_address"));
+          up.photo.setIcon(ResizeImage(rs.getString("c_image"), null, imagelbl));
+          up.oldpath = rs.getString("c_image");
+           if(rs.getString("c_image").isEmpty()){
+                    up.Browse.setVisible(false);
+                    ImageIcon imageIcon = new ImageIcon("src/icons/add.png");
+                    up.photo.setIcon(imageIcon);
+                }else{
+                    up.Browse.setVisible(true);
+                    up.Browse.setText("REMOVE");
+                }
+         }
 
+          JDesktopPane pane = getDesktopPane();
+          pane.add(up);
+          up.setVisible(true);
+       this.dispose();
+          
+      } catch (SQLException ex) {
+          Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, ex);
+      }
     }//GEN-LAST:event_editMouseClicked
 
     private void editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseEntered
@@ -403,77 +408,6 @@ public void displayImage(){
         // TODO add your handling code here:
     }//GEN-LAST:event_c_name1ActionPerformed
 
-    private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
-        JFileChooser chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg", "gif", "png");
-        chooser.addChoosableFileFilter(filter);
-        int result = chooser.showSaveDialog(null);
-        
-        if (result == JFileChooser.APPROVE_OPTION){
-            File selectedFile = chooser.getSelectedFile();
-            path = selectedFile.getAbsolutePath();
-            imagelbl.setIcon(ResizeImage(path,null));
-            imgPath = path;
-            File f = chooser.getSelectedFile();
-            filename = selectedFile.getAbsolutePath();
-        }else{
-        JOptionPane.showMessageDialog(null, "Canceled !");
-        }
-        
-      
-        try {
-                File image = new File(filename);
-                FileInputStream fis = new FileInputStream(image);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                byte[] buf = new byte[1024];
-                
-                for (int readNum; (readNum=fis.read(buf)) !=-1;){
-                 bos.write(buf,0,readNum);
-                }
-                person_image=bos.toByteArray();
-                
-        }catch(Exception e){
-            System.out.println(e);
-        }
-
-    }//GEN-LAST:event_updateMouseClicked
-
-    private void updateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseEntered
-        update.setBackground(bodycolor);
-    }//GEN-LAST:event_updateMouseEntered
-
-    private void updateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseExited
-        update.setBackground(headcolor);
-    }//GEN-LAST:event_updateMouseExited
-
-    private void update1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update1MouseClicked
-        try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_fish", "root", "");
-             String sql = "UPDATE `tbl_costumer` SET `c_image`=?,`c_imgname`=? WHERE `c_username`='"+jname.getText()+"'";
-               PreparedStatement pst = con.prepareStatement(sql);
-                pst.setBytes(1,person_image);
-                pst.setString(2, filename);
-                pst.execute();
-                int update = pst.executeUpdate();
-                if(update>0){
-                    JOptionPane.showMessageDialog(null, "Succesfully updated");
-                    
-                }
-        } catch (SQLException ex) {
-            Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, ex);
-             JOptionPane.showMessageDialog(null, "Select an Image First");
-        }    
-    }//GEN-LAST:event_update1MouseClicked
-
-    private void update1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update1MouseEntered
-      update1.setBackground(bodycolor);
-    }//GEN-LAST:event_update1MouseEntered
-
-    private void update1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update1MouseExited
-       update1.setBackground(headcolor);
-    }//GEN-LAST:event_update1MouseExited
-
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
     displayImage();
     }//GEN-LAST:event_formComponentShown
@@ -488,9 +422,8 @@ public void displayImage(){
     private javax.swing.JLabel imagelbl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -503,7 +436,5 @@ public void displayImage(){
     private javax.swing.JPanel jPanel4;
     public javax.swing.JLabel jname;
     private javax.swing.JPanel out;
-    private javax.swing.JPanel update;
-    private javax.swing.JPanel update1;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author College-PC
  */
 public class addfish extends javax.swing.JFrame {
-
+ main m = new main();
     /**
      * Creates new form addfish
      */
@@ -26,19 +26,21 @@ public class addfish extends javax.swing.JFrame {
     }
     
    public String action;
+   public String usn="";
     
       Color bodycolor = new Color(153,204,255);
     Color headcolor = new Color(255,153,153);
     Color hover = new Color(0,153,204);
     
     public void close(){
-        
+      
         this.dispose();
-        main m = new main();
+       
         m.setVisible(true);
         add up = new add();
         m.despane.add(up).setVisible(true);
-        
+        m.name.setText(usn);
+        up.usern = usn;
     }
 
     /**
@@ -212,7 +214,7 @@ public class addfish extends javax.swing.JFrame {
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
     dbconnect dbc = new dbconnect();
-    
+     m.name.setText(usn);
     if(action.equals("Edit")){
         
          int num = dbc.updateData("UPDATE tbl_fish "
@@ -237,7 +239,7 @@ public class addfish extends javax.swing.JFrame {
 
             + "VALUES ('"+fish.getText()+"', '"+quan.getText()+"','"+box.getSelectedItem()+"','"+pri.getText()+"')");
         JOptionPane.showMessageDialog(null,"Successfull added");
-        
+         m.name.setText(usn);
         close();
     }  
     }   

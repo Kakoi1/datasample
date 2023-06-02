@@ -35,6 +35,9 @@ public class printPage extends javax.swing.JFrame {
         seticon();
 
     }
+    
+    public String nnm;
+    
     Color bodycolor = new Color(153, 204, 255);
     Color headcolor = new Color(255, 153, 153);
     Color hover = new Color(0, 153, 204);
@@ -46,7 +49,8 @@ public class printPage extends javax.swing.JFrame {
         m.setVisible(true);      
         soldProduct up = new soldProduct();        
         m.despane.add(up).setVisible(true);
-
+        m.name.setText(nnm);
+        up.report = nnm;
     }
 
     public void printing() {
@@ -71,7 +75,7 @@ public class printPage extends javax.swing.JFrame {
                 + "Address: " + u_add + "\n\n"
                 + "Transaction Status: " + stat + ""
                
-         
+        
        
        );
        
@@ -329,11 +333,12 @@ public class printPage extends javax.swing.JFrame {
 
     private void printerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printerMouseClicked
        
-        
+      
         try {
             boolean klee = textField.print();
             if(klee){
                 JOptionPane.showMessageDialog(null, "Print Succesfully!!");
+                close();
             }else{
                 JOptionPane.showMessageDialog(null, "Printing canceled");
             }

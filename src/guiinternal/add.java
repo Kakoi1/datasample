@@ -31,7 +31,9 @@ import net.proteanit.sql.DbUtils;
  * @author College-PC
  */
 public class add extends javax.swing.JInternalFrame {
+main m = new main();
 
+String nn = m.name.getText();
   
     public add() {
         initComponents();
@@ -76,8 +78,10 @@ public class add extends javax.swing.JInternalFrame {
     Color headcolor = new Color(255,153,153);
     Color hover = new Color(0,153,204);
     
+  public String usern="";
     
-    
+  
+  
 //    public String action;
 
     /**
@@ -105,6 +109,12 @@ public class add extends javax.swing.JInternalFrame {
         table = new javax.swing.JTable();
         delete1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -323,11 +333,12 @@ public class add extends javax.swing.JInternalFrame {
     private void adsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adsMouseClicked
         JFrame mainJFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
        mainJFrame.dispose();
+       this.dispose();
     addfish af = new addfish();
     af.action = "Add";
     af.save1.setText("Save");
    af.setVisible(true);
-    
+    af.usn = usern;
    
     }//GEN-LAST:event_adsMouseClicked
 
@@ -357,7 +368,7 @@ public class add extends javax.swing.JInternalFrame {
                 ResultSet rs = dbc.getData("SELECT * FROM tbl_fish WHERE f_code = '" + sid + "' ");
                 if (rs.next()) {
                     up.fish.setText(rs.getString("f_name"));
-                    up.box.setSelectedItem(rs.getString("f_status"));
+                    up.box.setSelectedItem(rs.getString("f_status").toString());
                     up.quan.setText(rs.getString("f_quantity"));
                     up.pri.setText(rs.getString("f_price"));
 
@@ -365,7 +376,9 @@ public class add extends javax.swing.JInternalFrame {
                     up.save1.setText("Update");
                     JFrame mainJFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
                     mainJFrame.dispose();
+                    this.dispose();
                     up.setVisible(true);
+                    up.usn = usern;
                 } else {
                     System.out.println("No Data Found");
                 }
@@ -401,10 +414,14 @@ int rowIndex = table.getSelectedRow();
 
     }//GEN-LAST:event_delete1MouseClicked
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+   
+    }//GEN-LAST:event_formComponentShown
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel ads;
-    private javax.swing.JPanel delete1;
+    public javax.swing.JPanel ads;
+    public javax.swing.JPanel delete1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -418,6 +435,6 @@ int rowIndex = table.getSelectedRow();
     public javax.swing.JTextField search;
     private javax.swing.JPanel searchb;
     private javax.swing.JTable table;
-    private javax.swing.JPanel update;
+    public javax.swing.JPanel update;
     // End of variables declaration//GEN-END:variables
 }

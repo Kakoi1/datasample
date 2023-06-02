@@ -74,6 +74,8 @@ public class costumer extends javax.swing.JInternalFrame {
     Color headcolor = new Color(255,153,153);
     Color hover = new Color(0,153,204);
     
+    public String cost;
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -302,6 +304,7 @@ public class costumer extends javax.swing.JInternalFrame {
                     JFrame mainJFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
                     mainJFrame.dispose();
                     up.setVisible(true);
+                    up.unm = cost;
                 } else {
                     System.out.println("No Data Found");
                 }
@@ -381,6 +384,7 @@ int rowIndex = table.getSelectedRow();
     af.action = "Add";
     af.save1.setText("Save");
    af.setVisible(true);
+   af.unm = cost;
     
     }//GEN-LAST:event_addMouseClicked
 

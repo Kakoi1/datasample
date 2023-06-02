@@ -138,7 +138,7 @@ public class main extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("View Report");
+        jLabel12.setText("Fish ");
         report.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 170, 20));
 
         horizon.add(report, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 221, -1, 42));
@@ -193,7 +193,7 @@ public class main extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Sold Product");
+        jLabel8.setText("Transactions");
         soldpro.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 170, 20));
 
         horizon.add(soldpro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 317, -1, 39));
@@ -290,9 +290,18 @@ public class main extends javax.swing.JFrame {
 
     private void reportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportMouseClicked
       add up = new add();
-      
+
       despane.add(up).setVisible(true);
-      
+    nm = name.getText();
+ up.usern =nm;
+ 
+ if(!name.getText().equals("admin")){
+     
+     up.ads.setVisible(false);
+     up.update.setVisible(false);
+     up.delete1.setVisible(false);
+ }
+ 
     }//GEN-LAST:event_reportMouseClicked
 
     private void accountMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountMouseEntered
@@ -323,13 +332,25 @@ nm=name.getText();
     }//GEN-LAST:event_mainminiMouseClicked
 
     private void retriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_retriMouseClicked
-    costumer cos = new costumer();
+   
+ if(!name.getText().equals("admin")){
+     JOptionPane.showMessageDialog(null, "You Can't Access this!! ");
+    
+ }else{
+       costumer cos = new costumer();
     despane.add(cos).setVisible(true);
+     nm = name.getText();
+ cos.cost =nm;
+
+ }
+ 
     }//GEN-LAST:event_retriMouseClicked
 
     private void soldproMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soldproMouseClicked
     soldProduct sp =new soldProduct();
     despane.add(sp).setVisible(true);
+     nm = name.getText();
+     sp.report = nm;
     }//GEN-LAST:event_soldproMouseClicked
 
     private void soldproMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soldproMouseEntered
@@ -393,8 +414,8 @@ nm=name.getText();
     private javax.swing.JLabel mainmini;
     public javax.swing.JTextField name;
     private javax.swing.JPanel report;
-    private javax.swing.JPanel retri;
-    private javax.swing.JPanel soldpro;
+    public javax.swing.JPanel retri;
+    public javax.swing.JPanel soldpro;
     // End of variables declaration//GEN-END:variables
 
     private void seticon() {

@@ -36,6 +36,8 @@ public class update extends javax.swing.JFrame {
         m.setVisible(true);
         costumer up = new costumer();
         m.despane.add(up).setVisible(true);
+        m.name.setText(unm);
+        up.cost = unm;
 }
     
    Color bodycolor = new Color(153,204,255);
@@ -43,7 +45,7 @@ public class update extends javax.swing.JFrame {
     Color hover = new Color(0,153,204);
     
       public String action;
-   
+      public String unm;
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -81,29 +83,29 @@ public class update extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("User id:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 90, 30));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 90, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Name:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 60, 30));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 60, 30));
 
         name.setBackground(new java.awt.Color(204, 204, 204));
         name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         name.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 190, 30));
+        jPanel2.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 190, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Contact no.:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 80, 30));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 80, 30));
 
         cont.setBackground(new java.awt.Color(204, 204, 204));
         cont.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         cont.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cont.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 190, 30));
+        jPanel2.add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 190, 30));
 
         id.setEditable(false);
         id.setBackground(new java.awt.Color(204, 204, 204));
@@ -144,7 +146,7 @@ public class update extends javax.swing.JFrame {
         jPanel3.add(jLabel11);
         jLabel11.setBounds(10, 10, 290, 30);
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 60));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 60));
 
         delete3.setBackground(new java.awt.Color(255, 153, 153));
         delete3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -172,28 +174,24 @@ public class update extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("Address:");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 80, 30));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 80, 30));
 
         add.setColumns(20);
         add.setRows(5);
         add.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jScrollPane1.setViewportView(add);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 190, -1));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 190, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 10, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 63, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
         );
 
         pack();
