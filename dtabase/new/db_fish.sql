@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2023 at 12:48 PM
+-- Generation Time: Jun 05, 2023 at 12:24 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -66,7 +66,7 @@ INSERT INTO `tbl_costumer` (`c_id`, `c_name`, `c_username`, `c_password`, `c_con
 (45, 'dadas', 'baba', 'CPjgJgxkQYUQzvsrBu7lzQ==', 'dada', 'dada', 'pending', ''),
 (46, 'vvs', 'vv', 'gnfgkQ11AZW0SHl2FuCRrQ==', 'svv', 'vvs', 'pending', ''),
 (48, '123', 'sad', 'SfC60plofGIzQYIXi/112A==', '123', '123', 'pending', 'src/forImages/main.png'),
-(49, 'sasa', 'sas', 'wS4B8qE/9Vh+Hp5K7bgkLQ==', 'sasa', 'sasa', 'pending', 'src/forImages/cid.jpg'),
+(49, 'sasa', 'sasas', 'R7zlx09Yn0hn29V+nKn4CA==', 'sasa', 'sasa', 'pending', 'src/forImages/cid.jpg'),
 (50, 'cacas', 'cacas', 'XwObTvAFih1lLxPWEjdaWw==', 'cacas', 'cacas', 'pending', 'src/forImages/aqua.jpg.png'),
 (51, 'admin', 'admin', 'ISMvKXpXpadDiUoOSoAfww==', 'admin', 'admin', 'pending', 'src/forImages/FL2QCXeWUBAJCLq.jpg');
 
@@ -89,7 +89,7 @@ CREATE TABLE `tbl_fish` (
 --
 
 INSERT INTO `tbl_fish` (`f_code`, `f_name`, `f_status`, `f_quantity`, `f_price`) VALUES
-(2, 'sdsadss', 'Sold', 'dsadsss', 'dsasss'),
+(2, 'sdsadsss', 'Sold', 'dsadsss', 'dsasss'),
 (3, 'dsas', 'Sold', 'dsas', 'dsas'),
 (4, 'dsa', 'Sold', 'dsa', 'dsa'),
 (7, 'dsass', 'Available', 'Availabless', 'dsass'),
@@ -111,6 +111,7 @@ CREATE TABLE `tbl_soldproduct` (
   `sp_id` int(15) NOT NULL,
   `f_code` int(15) NOT NULL,
   `u_id` int(15) NOT NULL,
+  `sp_date` date NOT NULL DEFAULT current_timestamp(),
   `sp_status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -118,10 +119,11 @@ CREATE TABLE `tbl_soldproduct` (
 -- Dumping data for table `tbl_soldproduct`
 --
 
-INSERT INTO `tbl_soldproduct` (`sp_id`, `f_code`, `u_id`, `sp_status`) VALUES
-(3, 17, 2, 'sold'),
-(4, 17, 2, 'sold'),
-(5, 17, 1, 'sold');
+INSERT INTO `tbl_soldproduct` (`sp_id`, `f_code`, `u_id`, `sp_date`, `sp_status`) VALUES
+(3, 22, 2, '2023-06-04', 'Pending'),
+(4, 2, 5, '2023-06-04', 'Pending'),
+(5, 4, 3, '2023-06-29', 'Pending'),
+(7, 17, 5, '2023-06-04', 'Complete');
 
 -- --------------------------------------------------------
 
@@ -197,7 +199,7 @@ ALTER TABLE `tbl_fish`
 -- AUTO_INCREMENT for table `tbl_soldproduct`
 --
 ALTER TABLE `tbl_soldproduct`
-  MODIFY `sp_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `sp_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`

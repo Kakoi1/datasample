@@ -21,10 +21,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import login.addfish;
-import login.printPage;
-import login.main;
-import login.update;
+import myapp.addfish;
+import myapp.printPage;
+import myapp.main;
+import myapp.update;
 import net.proteanit.sql.DbUtils;
 /**
  *
@@ -250,7 +250,7 @@ String nn = m.name.getText();
 
         jScrollPane1.setViewportView(table);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 150, 780, 270));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 150, 800, 270));
 
         delete1.setBackground(new java.awt.Color(255, 153, 153));
         delete1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));

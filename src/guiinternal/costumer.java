@@ -20,8 +20,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import login.addfish;
-import login.update;
+import myapp.addfish;
+import myapp.update;
 import net.proteanit.sql.DbUtils;
 
 /**

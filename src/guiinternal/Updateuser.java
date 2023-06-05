@@ -31,8 +31,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import login.login;
-import login.main;
+import myapp.login;
+import myapp.main;
 
 /**
  *

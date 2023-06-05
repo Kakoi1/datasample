@@ -5,6 +5,8 @@
  */
 package guiinternal;
 
+import myapp.main;
+import myapp.login;
 import config.MyConnection;
 import config.dbconnect;
 import java.awt.Color;
@@ -36,7 +38,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import login.*;
 
 
 
