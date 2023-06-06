@@ -46,6 +46,7 @@ public String klee="";
             jLabel6.setVisible(false);
             adfish.setVisible(false);
             labels.setVisible(true);
+            jLabel14.setVisible(false);
         }
         
     }
@@ -89,6 +90,7 @@ public String klee="";
         labels = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -289,6 +291,7 @@ public String klee="";
         getContentPane().add(fna, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 620));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     Color bodycolor = new Color(153,204,255);

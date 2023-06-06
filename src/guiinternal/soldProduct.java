@@ -438,15 +438,15 @@ public class soldProduct extends javax.swing.JInternalFrame {
         else{
             TableModel model = table.getModel();
             printPage up = new printPage();
-            up.transid=(""+model.getValueAt(rowIndex, 0));
-            up.fid=(""+model.getValueAt(rowIndex, 1));
-            up.fname=(""+model.getValueAt(rowIndex, 2));
-            up.price=(""+model.getValueAt(rowIndex, 3));
-            up.user=(""+model.getValueAt(rowIndex, 4));
-            up.uname=(""+model.getValueAt(rowIndex, 5));
-             up.u_add=(""+model.getValueAt(rowIndex, 6));
-              up.date=(""+model.getValueAt(rowIndex, 7));
-              up.stat=(""+model.getValueAt(rowIndex, 8));
+            up.transid.setText(""+model.getValueAt(rowIndex, 0));
+            up.fid.setText(""+model.getValueAt(rowIndex, 1));
+            up.fname.setText(""+model.getValueAt(rowIndex, 2));
+            up.price.setText(""+model.getValueAt(rowIndex, 3));
+            up.user.setText(""+model.getValueAt(rowIndex, 4));
+            up.uname.setText(""+model.getValueAt(rowIndex, 5));
+             up.u_add.setText(""+model.getValueAt(rowIndex, 6));
+              up.date.setText(""+model.getValueAt(rowIndex, 7));
+              up.stat.setText(""+model.getValueAt(rowIndex, 8));
             
             JFrame mainJFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
             mainJFrame.dispose();

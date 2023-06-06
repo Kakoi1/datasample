@@ -61,56 +61,7 @@ public class printPage extends javax.swing.JFrame {
         up.report = nnm;
     }
 
-      public String transid = "";
-       public String fid = "";
-      public String fname= "";
-        public String price = "";
-       public String user ="";
-       public String uname = "";
-       public String u_add = "";
-      public String stat = "";
-      public String date ="";
     
-    public void printing() {
-
-    
-
-        textField.setText(
-                
-                "\t                             Transaction details\n\n "
-                        
-                + "Transaction ID: " + transid + "\n\n"
-                + " Fish Code: " + fid + "\n\n"
-                + " Fish Name: " + fname + "\n\n"
-                + " Price :" + price + "\n\n"
-                + " Buyer/User ID: " + user + "\n\n"
-                + " Name; " + uname + "\n\n"
-                + " Address: " + u_add + "\n\n"
-                + " Address: " + stat + "\n\n"
-                + " Transaction date: " + date + ""
-               
-        
-       
-       );
-        
-       
-    }
-
-//      
-//       private void displaydata(){
-//        try{
-//     dbconnect db = new dbconnect();
-//     
-//     ResultSet rs = db.getData("SELECT * FROM tbl_fish");
-//     
-//     table.setModel(DbUtils.resultSetToTableModel(rs));
-//        
-//        }catch(SQLException ex){
-//            
-//            System.out.println("Error"+ex);
-//        } 
-//        
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,9 +80,26 @@ public class printPage extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jpanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        textField = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        date = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        transid = new javax.swing.JLabel();
+        fid = new javax.swing.JLabel();
+        fname = new javax.swing.JLabel();
+        stat = new javax.swing.JLabel();
+        price = new javax.swing.JLabel();
+        user = new javax.swing.JLabel();
+        uname = new javax.swing.JLabel();
+        u_add = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -214,7 +182,7 @@ public class printPage extends javax.swing.JFrame {
         jLabel13.setText("Cancel");
         cancel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 70, 30));
+        jPanel2.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 70, 30));
 
         jpanel.setBackground(new java.awt.Color(255, 255, 255));
         jpanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -224,25 +192,104 @@ public class printPage extends javax.swing.JFrame {
         jpanel.add(jLabel2);
         jLabel2.setBounds(470, 10, 48, 50);
 
-        textField.setEditable(false);
-        textField.setColumns(20);
-        textField.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        textField.setForeground(new java.awt.Color(51, 51, 51));
-        textField.setRows(5);
-        textField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                textFieldMouseEntered(evt);
-            }
-        });
-        jScrollPane1.setViewportView(textField);
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setText("Transaction ID :");
+        jpanel.add(jLabel3);
+        jLabel3.setBounds(10, 70, 130, 30);
 
-        jpanel.add(jScrollPane1);
-        jScrollPane1.setBounds(0, 0, 530, 390);
+        jLabel4.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel4.setText("Fish Code :");
+        jpanel.add(jLabel4);
+        jLabel4.setBounds(10, 110, 130, 30);
 
-        jPanel2.add(jpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 530, 390));
+        jLabel5.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel5.setText("Fish Name :");
+        jpanel.add(jLabel5);
+        jLabel5.setBounds(10, 150, 130, 30);
+
+        jLabel7.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel7.setText("Fish Price :");
+        jpanel.add(jLabel7);
+        jLabel7.setBounds(10, 190, 130, 30);
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel8.setText("Buyer ID :");
+        jpanel.add(jLabel8);
+        jLabel8.setBounds(10, 230, 130, 30);
+
+        jLabel9.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel9.setText("Buyer Name :");
+        jpanel.add(jLabel9);
+        jLabel9.setBounds(10, 270, 130, 30);
+
+        jLabel10.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel10.setText("Transaction Status :");
+        jpanel.add(jLabel10);
+        jLabel10.setBounds(10, 350, 150, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/aqua1.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 180, 100));
+        jpanel.add(jLabel1);
+        jLabel1.setBounds(180, 10, 180, 60);
+
+        date.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 12)); // NOI18N
+        jpanel.add(date);
+        date.setBounds(440, 70, 90, 30);
+
+        jLabel15.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel15.setText("Buyer Address:");
+        jpanel.add(jLabel15);
+        jLabel15.setBounds(10, 310, 140, 30);
+
+        transid.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 12)); // NOI18N
+        jpanel.add(transid);
+        transid.setBounds(160, 70, 140, 30);
+
+        fid.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 12)); // NOI18N
+        jpanel.add(fid);
+        fid.setBounds(160, 110, 140, 30);
+
+        fname.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 12)); // NOI18N
+        jpanel.add(fname);
+        fname.setBounds(160, 150, 140, 30);
+
+        stat.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 12)); // NOI18N
+        jpanel.add(stat);
+        stat.setBounds(160, 350, 140, 30);
+
+        price.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 12)); // NOI18N
+        jpanel.add(price);
+        price.setBounds(160, 190, 140, 30);
+
+        user.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 12)); // NOI18N
+        jpanel.add(user);
+        user.setBounds(160, 230, 140, 30);
+
+        uname.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 12)); // NOI18N
+        jpanel.add(uname);
+        uname.setBounds(160, 270, 140, 30);
+
+        u_add.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 12)); // NOI18N
+        jpanel.add(u_add);
+        u_add.setBounds(160, 310, 140, 30);
+
+        jLabel23.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel23.setText("Transaction Date :");
+        jpanel.add(jLabel23);
+        jLabel23.setBounds(300, 70, 140, 30);
+
+        jPanel2.add(jpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 540, 390));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/aqua1.png"))); // NOI18N
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 180, 100));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 472));
 
@@ -311,12 +358,8 @@ public class printPage extends javax.swing.JFrame {
         cancel.setBackground(headcolor);
     }//GEN-LAST:event_cancelMouseExited
 
-    private void textFieldMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textFieldMouseEntered
-   
-    }//GEN-LAST:event_textFieldMouseEntered
-
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-            printing();
+          
     }//GEN-LAST:event_formComponentShown
 
     /**
@@ -357,17 +400,34 @@ public class printPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cancel;
+    public javax.swing.JLabel date;
+    public javax.swing.JLabel fid;
+    public javax.swing.JLabel fname;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpanel;
+    public javax.swing.JLabel price;
     private javax.swing.JPanel printer;
+    public javax.swing.JLabel stat;
     private javax.swing.JLabel text;
-    private javax.swing.JTextArea textField;
+    public javax.swing.JLabel transid;
+    public javax.swing.JLabel u_add;
+    public javax.swing.JLabel uname;
+    public javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
 
     private void seticon() {
