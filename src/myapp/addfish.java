@@ -150,13 +150,13 @@ public class addfish extends javax.swing.JFrame {
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 60));
 
-        box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Sold" }));
+        box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Sold", "Deceased" }));
         box.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxActionPerformed(evt);
             }
         });
-        jPanel2.add(box, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, 80, 30));
+        jPanel2.add(box, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, 90, 30));
 
         quan.setBackground(new java.awt.Color(204, 204, 204));
         quan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

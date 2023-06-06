@@ -45,6 +45,9 @@ public class tblpro extends javax.swing.JFrame {
         
     }
  Color headcolor = new Color(255,153,153);
+ 
+ 
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -98,15 +101,28 @@ public class tblpro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
-
+String died;
          int rowindex = table.getSelectedRow();
         if(rowindex<0){
             JOptionPane.showMessageDialog(null, "Please Select an Item!");
         }else{
+           
             TableModel model = table.getModel();
+              died = (""+model.getValueAt(rowindex, 2));
+               if(died.equalsIgnoreCase("deceased")){
+                
+                JOptionPane.showMessageDialog(null, "The Fish you Trying to buy is Deceased... Choose Another fish");
+                
+            }else if(died.equalsIgnoreCase("sold")){
+                
+                JOptionPane.showMessageDialog(null, "The Fish you Trying to buy is Sold... Choose Another fish");
+                
+                   }
+               else{
             adtransaction uri = new adtransaction();
             uri.fid .setText(""+model.getValueAt(rowindex, 0));
             uri.name.setText(""+model.getValueAt(rowindex, 1));
+          
             uri.fip.setText(""+model.getValueAt(rowindex, 4));
             //                uri.email.setText(""+model.getValueAt(rowindex, 3));
             //                uri.username.setText(""+model.getValueAt(rowindex, 4));
@@ -126,7 +142,7 @@ public class tblpro extends javax.swing.JFrame {
             uri.setVisible(true);
             
           
-            
+               }
         }
             }//GEN-LAST:event_tableMouseClicked
 

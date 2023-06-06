@@ -109,6 +109,7 @@ String nn = m.name.getText();
         table = new javax.swing.JTable();
         delete1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        box = new javax.swing.JComboBox<>();
 
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -275,6 +276,14 @@ String nn = m.name.getText();
 
         jPanel2.add(delete1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 70, 30));
 
+        box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Sold", "Deceased" }));
+        box.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxActionPerformed(evt);
+            }
+        });
+        jPanel2.add(box, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 110, 30));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 440));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -418,9 +427,17 @@ int rowIndex = table.getSelectedRow();
    
     }//GEN-LAST:event_formComponentShown
 
+    private void boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxActionPerformed
+   DefaultTableModel model = (DefaultTableModel) table.getModel();
+        TableRowSorter<DefaultTableModel> obj  = new TableRowSorter<>(model);
+        table.setRowSorter(obj);
+        obj.setRowFilter(RowFilter.regexFilter(box.getSelectedItem().toString()));     
+    }//GEN-LAST:event_boxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel ads;
+    public javax.swing.JComboBox<String> box;
     public javax.swing.JPanel delete1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;

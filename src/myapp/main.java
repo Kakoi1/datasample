@@ -262,6 +262,8 @@ public class main extends javax.swing.JFrame {
         dashboard db = new dashboard();
 
         despane.add(db).setVisible(true);
+        db.namu = name.getText();
+        
     }//GEN-LAST:event_dashpaneMouseClicked
 
     private void dashpaneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashpaneMouseEntered

@@ -114,6 +114,7 @@ public class soldProduct extends javax.swing.JInternalFrame {
         add = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -156,7 +157,7 @@ public class soldProduct extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel2.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 70, 30));
+        jPanel2.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 70, 30));
 
         discard.setBackground(new java.awt.Color(255, 153, 153));
         discard.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -179,7 +180,7 @@ public class soldProduct extends javax.swing.JInternalFrame {
         jLabel4.setText("Search");
         discard.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(discard, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 100, 70, 30));
+        jPanel2.add(discard, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 100, 70, 30));
 
         jPanel3.setBackground(new java.awt.Color(153, 204, 255));
         jPanel3.setLayout(null);
@@ -221,7 +222,7 @@ public class soldProduct extends javax.swing.JInternalFrame {
         jLabel8.setText("Delete");
         delete1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(delete1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 70, 30));
+        jPanel2.add(delete1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 70, 30));
 
         printer.setBackground(new java.awt.Color(255, 153, 153));
         printer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -244,7 +245,7 @@ public class soldProduct extends javax.swing.JInternalFrame {
         Print.setText("Print");
         printer.add(Print, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 30));
 
-        jPanel2.add(printer, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 70, 30));
+        jPanel2.add(printer, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 70, 30));
 
         printer1.setBackground(new java.awt.Color(255, 153, 153));
         printer1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -267,7 +268,7 @@ public class soldProduct extends javax.swing.JInternalFrame {
         Print1.setText("Print Table");
         printer1.add(Print1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 30));
 
-        jPanel2.add(printer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 80, 30));
+        jPanel2.add(printer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 80, 30));
 
         add.setBackground(new java.awt.Color(255, 153, 153));
         add.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -305,7 +306,20 @@ public class soldProduct extends javax.swing.JInternalFrame {
         );
 
         jPanel2.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 70, 30));
-        jPanel2.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, 150, 30));
+        jPanel2.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 150, 30));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Approved", "Complete" }));
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseClicked(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 110, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 440));
 
@@ -506,6 +520,16 @@ public class soldProduct extends javax.swing.JInternalFrame {
          add.setBackground(headcolor);
     }//GEN-LAST:event_addMouseExited
 
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+      
+    }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+ DefaultTableModel model = (DefaultTableModel) table.getModel();
+        TableRowSorter<DefaultTableModel> obj  = new TableRowSorter<>(model);
+        table.setRowSorter(obj);
+        obj.setRowFilter(RowFilter.regexFilter(jComboBox1.getSelectedItem().toString()));    }//GEN-LAST:event_jComboBox1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Print;
@@ -513,6 +537,7 @@ public class soldProduct extends javax.swing.JInternalFrame {
     private javax.swing.JPanel add;
     private javax.swing.JPanel delete1;
     private javax.swing.JPanel discard;
+    private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;

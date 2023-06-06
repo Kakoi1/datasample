@@ -48,7 +48,7 @@ public class login extends javax.swing.JFrame {
 Color hover = new Color (255,153,153);
 Color exit = new Color (153,204,255);
 
-
+ 
 
 
 
@@ -65,6 +65,8 @@ Color exit = new Color (153,204,255);
         panel.setBackground(exit);
         panel.setBorder(empty);
     }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -305,7 +307,10 @@ Color exit = new Color (153,204,255);
     }//GEN-LAST:event_cancelMouseExited
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
-        main m = new main();
+            
+        String status;
+
+              main m = new main();
         dbconnect dbc = new dbconnect();
         String uname = username.getText();
         String pass = String.valueOf(password.getPassword());
@@ -315,9 +320,17 @@ Color exit = new Color (153,204,255);
             String reHashed;
             String Hashed;
             ResultSet rs = dbc.getData("SELECT * FROM `tbl_costumer` WHERE `c_username`='" + uname + "'");
+          
 
             if (rs.next()) {
-
+                status = rs.getString("c_status");
+                 if(status.equalsIgnoreCase("Pending")){
+            JOptionPane.showMessageDialog(null, "Account is Still Pending for Approval");
+        }else if(status.equalsIgnoreCase("Banned")){
+            
+            JOptionPane.showMessageDialog(null, "this Account is banned");
+            
+        } else{
                 Hashed = rs.getString("c_password");
                 reHashed = PasswordHasher.hashPassword(pass);
                 if (uname.equals(rs.getString("c_username")) && Hashed.equals(reHashed)) {
@@ -329,19 +342,22 @@ Color exit = new Color (153,204,255);
 //                    set.c_add.setText(rs.getString("c_address"));
    
 
-                } else {
+                } 
+                else {
                     JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
                 }
+        }
             }else{
                  JOptionPane.showMessageDialog(null, "INVALID USERNAME AND PASSWORD... TRY AGAIN");
-             
+             }
         
-}
+
 
 }catch(NoSuchAlgorithmException | SQLException ex){
    
     System.out.println(""+ex);
 }
+        
     }//GEN-LAST:event_loginMouseClicked
 
     private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked

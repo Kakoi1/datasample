@@ -39,7 +39,7 @@ import myapp.main;
  * @author College-PC
  */
 public class Updateuser extends javax.swing.JInternalFrame {
-public String destination = "";
+public String destination ;
     File selectedFile;
     public String oldpath;
     String path;
@@ -412,25 +412,19 @@ ImageIcon imageIcon = new ImageIcon("src/icons/add.png");
     private void update1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update1MouseClicked
         main m =new main();
         dbconnect dbc = new dbconnect();
-      
-        
+           
       
             try {
-//                  ResultSet rs = dbc.getData("SELECT * FROM `tbl_costumer` WHERE `c_username`='"+c_username.getText()+"'");
-                   
-//        else if(rs.next()){
-//            JOptionPane.showMessageDialog(null, "Username "+c_username.getText()+" Already exist");
-//        } 
-                   
-
+                
+           
                 String sql = "UPDATE `tbl_costumer` SET `c_name`=?,`c_contact_no.`=?,`c_address`=?,`c_image`=? WHERE `c_username`='"+nm+"'";
                 PreparedStatement pst = dbc.connection.prepareStatement(sql);
                 pst.setString(1, c_name.getText());
                 pst.setString(2, c_cont.getText());
                 pst.setString(3, c_add1.getText());
-                
                 pst.setString(4,destination);
                 pst.execute();
+            
                 
                 close();
                 imageUpdater(oldpath, path);
@@ -440,9 +434,12 @@ ImageIcon imageIcon = new ImageIcon("src/icons/add.png");
                     existingFile.delete();
                 }
                 JOptionPane.showMessageDialog(null, "Successfully Updated!");
-        
+                this.dispose();
             } catch (SQLException ex) {
                 Logger.getLogger(Updateuser.class.getName()).log(Level.SEVERE, null, ex);
+                
+                JOptionPane.showMessageDialog(null, "An Error Occured!!!");
+                             
             }
         
     }//GEN-LAST:event_update1MouseClicked

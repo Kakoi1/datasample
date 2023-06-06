@@ -350,6 +350,7 @@ public void displayImage(){
           up.c_add1.setText(rs.getString("c_address"));
           up.photo.setIcon(ResizeImage(rs.getString("c_image"), null, imagelbl));
           up.oldpath = rs.getString("c_image");
+         
            if(rs.getString("c_image").isEmpty()){
                     up.Browse.setVisible(false);
                     ImageIcon imageIcon = new ImageIcon("src/icons/add.png");

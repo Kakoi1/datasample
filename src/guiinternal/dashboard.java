@@ -6,7 +6,10 @@
 
 package guiinternal;
 import java.awt.Color;
+import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import myapp.main;
 /**
  *
  * @author College-PC
@@ -21,6 +24,8 @@ public class dashboard extends javax.swing.JInternalFrame {
          BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
          bi.setNorthPane(null);
     }
+    
+    public String namu="";
 
     Color headcolor = new Color(0,153,204);
     Color bodycolor = new Color(153,204,255);
@@ -151,9 +156,18 @@ public class dashboard extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_settingMouseExited
 
     private void manageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageMouseClicked
-    
-    
-    
+       
+        if(namu.equals("admin")){
+        manageUser up = new manageUser();
+        
+       JDesktopPane pane = getDesktopPane();
+          pane.add(up);
+          up.setVisible(true);
+       this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "you can't Access THIS!!!");
+        
+        }
     }//GEN-LAST:event_manageMouseClicked
 
 
